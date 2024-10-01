@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def result():
-  query = "iphone" 
+  query = "mirror" 
   #request.form.get('query')
   #for when frontend is set up
 

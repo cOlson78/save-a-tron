@@ -44,7 +44,7 @@ def scraper(query):
             # Extract both the whole and fractional parts of the price
             price_whole = product.find('span', attrs={"class": "a-price-whole"}).text
             price_fraction = product.find('span', attrs={"class": "a-price-fraction"}).text
-            price = price_whole + "." + price_fraction  # Combine the whole and fractional part
+            price = price_whole + price_fraction  # Combine the whole and fractional part
         except Exception as e:
             print("This was an advertisement or price not found", e)
 
@@ -52,7 +52,7 @@ def scraper(query):
             d = {
                 "img": img,
                 "title": title,
-                "price": f"Rs. {"$"+price}" if price else None
+                "price": f"{"$"+price}" if price else None
             }
             result.append(d)
 
