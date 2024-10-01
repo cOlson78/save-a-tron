@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Scraper</title>
+</head>
+<body>
+    <h1>Web Scraper</h1>
+    <form method="POST">
+        <label for="url">Enter URL:</label>
+        <input type="text" name="url" id="url">
+        <button type="submit">Scrape</button>
+    </form>
+
+    {% if title %}
+        <h2>Title: {{ title }}</h2>
+    {% endif %}
+
+    {% if error %}
+        <p>Error: {{ error }}</p>
+    {% endif %}
+</body>
+</html>
