@@ -1,24 +1,23 @@
-// Filename - App.js
-
-// Importing modules
+// Import React, Hooks, and the css file
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+//function for the application
 function App() {
-	// usestate for setting a javascript
-	// object for storing and using data
+	// Use useState hook to store and set the data variables
 	const [data, setdata] = useState({
 		flaskConnected: "",
 		date: "",
 	});
 
-	// Using useEffect for single rendering
+	// Using useEffect for rendering
 	useEffect(() => {
-		// Using fetch to fetch the api from 
-		// flask server it will be redirected to proxy
+
+		// Use fetch to grab the data in the flask server
 		fetch("/data").then((res) =>
 			res.json().then((data) => {
-				// Setting a data from api
+
+				// Set the variables using data from the flask server
 				setdata({
 					flaskConnected: data.flaskConnected,
 					date: data.Date,
@@ -31,7 +30,8 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<h1>React and flask</h1>
-				{/* Calling a data from setdata for showing */}
+
+				{/* The data will be displayed here*/}
 				<p>{data.flaskConnected}</p>
 				<p>{data.date}</p>
 			</header>
@@ -39,4 +39,5 @@ function App() {
 	);
 }
 
+//Allows the App to be exported
 export default App;
