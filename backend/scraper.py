@@ -52,8 +52,7 @@ def scraper(query):
             d = {
                 "img": img,
                 "title": title,
-                # "price": f"{"$"+price}" if price else None
-                "price": price
+                "price": f"{"$"+price}" if price else None
             }
             result.append(d)
 
