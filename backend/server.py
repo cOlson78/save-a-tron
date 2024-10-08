@@ -16,7 +16,7 @@ def get_time():
 	return {
 		'flaskConnected':"If you see this message on react, the connection works", 
 		"Date":x, 
-		}
+	}
 
 	
 # Run the app
