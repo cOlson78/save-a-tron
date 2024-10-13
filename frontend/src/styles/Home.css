@@ -11,4 +11,11 @@
 
 .filter-section {
     margin-left: 1.5rem;
+    float: left;
+}
+
+.products {
+   margin: 0 auto;
+   width: 80%;
+   margin-top: 35px;
 }
