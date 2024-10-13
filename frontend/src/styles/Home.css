@@ -2,3 +2,13 @@
     margin: 0 auto;
     margin-top: 4rem;
 }
+
+.filter-header {
+    color: #ECF0F1;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.filter-section {
+    margin-left: 1.5rem;
+}

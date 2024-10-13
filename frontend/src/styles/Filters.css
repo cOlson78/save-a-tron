@@ -1,0 +1,39 @@
+* {
+    color: #333333;
+}
+.filters {
+    background-color: #ECF0F1;
+    width: 150px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+   
+}
+.filter-category {
+
+}
+.filter-category-header {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.filter-item {
+    margin: 5px;
+}
+
+.filter-item input {
+    margin-right: 10px;
+}
+
+button {
+    color: #003366;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    margin-top: 7px;
+}
+
+button:hover {
+    cursor: pointer;
+}
