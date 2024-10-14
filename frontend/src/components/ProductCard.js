@@ -8,15 +8,15 @@ const ProductCard = ({ products }) => {
       {products.map((product, index) => (
 
         <div key={index} className="product-card">
-            <img className="product-image" src={product.image} alt={product.name} />
+            <img className="product-image" src={product.img} alt={product.name} />
 
             <div className="product-text">
                 <div className="product-name-price">
-                    <h2 className="product-name">{product.name}</h2>
+                    <h2 className="product-name">{product.title}</h2>
                     <h2 className="product-price">${product.price}</h2>
                 </div>
                 
-                <a href={product.link} target="_blank" rel="noopener noreferrer" className="product-link">
+                <a href={product.url} target="_blank" rel="noopener noreferrer" className="product-link">
                     Visit Store
                 </a>
 
