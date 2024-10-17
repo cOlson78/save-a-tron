@@ -57,6 +57,11 @@ def scraper(query):
             title_tag = product.find('span', attrs={"class": "a-text-normal"})
             if title_tag:
                 title = title_tag.text
+                
+                # Get only the first 15 words
+                title_words = title.split()[:15]  # Split by spaces
+                title = ' '.join(title_words)  # Join them
+                
                 # Extract the product URL from the parent <a> tag
                 product_url_tag = title_tag.find_parent('a')
                 if product_url_tag and 'href' in product_url_tag.attrs:
