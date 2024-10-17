@@ -1,15 +1,13 @@
-from flask import Flask
-from flask import Flask
+from flask import Flask, request, jsonify
 from scraper import scraper
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
-
-@app.route("/")
-def result():
-  query = "mirror" 
-  #request.form.get('query')
-  #for when frontend is set up
-
-  result = scraper(query)
-  return result
+@app.route('/search')
+def search():
+   query = request.args.get('query')
+  
+   results = scraper(query)
+   return jsonify(results)

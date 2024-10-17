@@ -13,21 +13,15 @@ const ProductCard = ({ products }) => {
             <div className="product-text">
                 <div className="product-name-price">
                     <h2 className="product-name">{product.title}</h2>
-                    <h2 className="product-price">${product.price}</h2>
+                    <h2 className="product-price">{product.price}</h2>
                 </div>
                 
                 <a href={product.url} target="_blank" rel="noopener noreferrer" className="product-link">
                     Visit Store
                 </a>
-
-               
-                
             </div>
 
-           
             <button className="cheaper-options-button">View Cheaper Options</button>
-            
-            
         </div>
       ))}
     </div>
