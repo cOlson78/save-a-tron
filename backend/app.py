@@ -21,6 +21,7 @@ db.session.commit()
 @app.route('/search')
 def search():
    query = request.args.get('query')
+   dept = request.args.get('dept')
   
-   results = scraper(query)
+   results = scraper(query,dept)
    return jsonify(results)
