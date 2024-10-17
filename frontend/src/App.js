@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Wishlist from "./pages/Wishlist";
+import Forgot from "./pages/Forgot";
 import "./App.css";
 import "./index.css";
 
@@ -54,6 +55,7 @@ function App() {
 				<Route path="/" element={<Home/>}/>
 				<Route path="/login" element={<Login/>}/>
 				<Route path="/wishlist" element={<Wishlist/>}/>
+				<Route path="/forgot" element={<Forgot/>}/>
 			</Routes>
 		</Router>
 	);
