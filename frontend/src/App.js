@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Wishlist from "./pages/Wishlist";
 import Forgot from "./pages/Forgot";
 import Create from "./pages/Create";
+import Reset from "./pages/Reset";
 import "./App.css";
 import "./index.css";
 
@@ -58,6 +59,7 @@ function App() {
 				<Route path="/wishlist" element={<Wishlist/>}/>
 				<Route path="/forgot" element={<Forgot/>}/>
 				<Route path="/create" element={<Create/>}/>
+				<Route path="/reset" element={<Reset/>}/>
 			</Routes>
 		</Router>
 	);

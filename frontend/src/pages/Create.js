@@ -9,7 +9,7 @@ const Create = () => {
             <input type="text" className='createEmail' placeholder="Email Address"></input>
             <input type="password" className='createPassword' placeholder="Password (8+ characters)"></input>
             <input type="password" className='retypePassword' placeholder="Retype Password"></input>
-            <Link to="/" className='continue'>Create Account</Link>
+            <Link to="/" className='createContinue'>Create Account</Link>
         </div>
     );
 };

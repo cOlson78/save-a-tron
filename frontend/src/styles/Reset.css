@@ -2,7 +2,7 @@
     overflow-y: auto;
 }
 
-.forgotBox {
+.resetBox {
     height: 450px;
     width: 40%;
     left: 30%;
@@ -11,30 +11,35 @@
     position: relative;
 }
 
-.forgotTextHeader {
+.resetText {
     text-align: center;
-    padding: 40px 10px 10px 10px;
+    padding: 50px 10px 10px 10px;
     text-wrap: wrap;
 }
 
-.forgotText {
-    text-align: center;
-    padding: 10px 10px 10px 10px;
-    text-wrap: wrap;
-}
-
-.forgotEmail {
+.resetPassword {
     background-color: #d9d9d9;
     position: absolute;
     font-size: 20px;
     padding: 8px;
     left: 10%;
-    top: 45%;
+    top: 30%;
     width: 80%;
     height: 50px;
 }
 
-.continue {
+.retypeNewPassword {
+    background-color: #d9d9d9;
+    position: absolute;
+    font-size: 20px;
+    padding: 8px;
+    left: 10%;
+    top: 50%;
+    width: 80%;
+    height: 50px;
+}
+
+.resetButton {
     background-color: #003366;
     padding: 12px 5px 5px 5px;
     position: absolute;
@@ -48,6 +53,6 @@
     color: white;
 }
 
-.continue:hover {
+.resetButton:hover {
     background-color: #004487;
 }
