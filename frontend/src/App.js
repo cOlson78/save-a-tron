@@ -10,6 +10,7 @@ import Create from "./pages/Create";
 import Reset from "./pages/Reset";
 import "./App.css";
 import "./index.css";
+import CheaperOption from "./pages/CheaperOption";
 
 // function to verify the react and flask connection
 // Commented out for now 
@@ -60,6 +61,7 @@ function App() {
 				<Route path="/forgot" element={<Forgot/>}/>
 				<Route path="/create" element={<Create/>}/>
 				<Route path="/reset" element={<Reset/>}/>
+				<Route path="/cheaper-option" element={<CheaperOption/>}/>
 			</Routes>
 		</Router>
 	);

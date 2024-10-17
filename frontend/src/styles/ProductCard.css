@@ -7,6 +7,7 @@
 
 .product-card, .product-card img {
     width: 300px;
+    position: relative; /* Position relative to allow absolute positioning of the heart */
 }
 
 .product-card {
@@ -14,11 +15,23 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-.product-card img {
+.product-image {
     height: 130px;
-    object-fit: cover;
-    /* object-fit: contain; */
+    object-fit: contain;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+.heart-icon {
+    font-size: 1.5rem; 
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    cursor: pointer; 
+    color: black; 
+}
+
+.heart-icon.added {
+    color: #FF0000; 
 }
 
 .product-name {
@@ -53,20 +66,17 @@
     text-decoration: underline;
 }
 
-.product-card button {
+.cheaper-options-button {
     display: block;
     margin: 0 auto;
     width: 100%;
     background-color: black;
     height: 35px;
     font-size: 20px;
+    text-align: center;
     color: #ffffff;
-   
 }
 
-.product-card button:hover {
-    background-color: #AAB2B8;
+.cheaper-options-button:hover {
+   text-decoration: underline;
 }
-
-
-

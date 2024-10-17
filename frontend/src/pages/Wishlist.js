@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import ProductCard from "../components/ProductCard";
+import "../styles/Wishlist.css";
 
 const Wishlist = () => {
     return (
-        <div>
-            <h1>Wishlist</h1>
+        <div className="wishlist-container">
+          
+            <p className="wishlist-header">Wishlist</p>
+            
         </div>
+        
     );
 };
 
