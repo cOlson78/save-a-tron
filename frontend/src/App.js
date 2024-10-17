@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Wishlist from "./pages/Wishlist";
 import Forgot from "./pages/Forgot";
+import Create from "./pages/Create";
 import "./App.css";
 import "./index.css";
 
@@ -56,6 +57,7 @@ function App() {
 				<Route path="/login" element={<Login/>}/>
 				<Route path="/wishlist" element={<Wishlist/>}/>
 				<Route path="/forgot" element={<Forgot/>}/>
+				<Route path="/create" element={<Create/>}/>
 			</Routes>
 		</Router>
 	);

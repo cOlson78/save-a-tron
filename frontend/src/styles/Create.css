@@ -2,7 +2,7 @@
     overflow-y: auto;
 }
 
-.login {
+.createBox {
     height: 450px;
     width: 40%;
     left: 30%;
@@ -11,53 +11,46 @@
     position: relative;
 }
 
-.loginText {
+.createText {
     text-align: center;
     padding: 10px 10px 10px 10px;
     text-wrap: wrap;
 }
 
-.email {
+.createEmail {
     background-color: #d9d9d9;
     position: absolute;
     font-size: 20px;
     padding: 8px;
     left: 10%;
-    top: 30%;
+    top: 20%;
     width: 80%;
     height: 50px;
 }
 
-.password {
+.createPassword {
     background-color: #d9d9d9;
     position: absolute;
     font-size: 20px;
     padding: 8px;
     left: 10%;
-    top: 50%;
+    top: 40%;
     width: 80%;
     height: 50px;
 }
 
-.forgot {
-    color: #003366;
+.retypePassword {
+    background-color: #d9d9d9;
     position: absolute;
+    font-size: 20px;
+    padding: 8px;
     left: 10%;
-    top: 70%;
+    top: 60%;
+    width: 80%;
+    height: 50px;
 }
 
-.forgot:hover .create:hover{
-    color: #004487;
-}
-
-.create {
-    color: #003366;
-    position: absolute;
-    right: 10%;
-    top: 70%;
-}
-
-.button {
+.continue {
     background-color: #003366;
     position: absolute;
     text-align: center;
@@ -70,6 +63,6 @@
     color: white;
 }
 
-.button:hover {
+.continue:hover {
     background-color: #004487;
 }
