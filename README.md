@@ -1,6 +1,11 @@
 # save-a-tron
 Save a ton with Save-A-Tron!
 
+# Repository Structure
+We have two main folders: frontend and backend. 'frontend' contains the React project that will be our front end of the project. 'backend' holds the Python files that will do the scraping commands and database servers.
+
+The "testing" folder contains files we use during the development of the program to experiment with technologies before we want to implement them into our actual project. 
+
 # React and Flask connection
 It's not really "connected" per say, but Flask acts like an API that the React front end can retreive data from.
 

@@ -1,0 +1,67 @@
+.body {
+    overflow-y: auto;
+}
+
+.login {
+    height: 450px;
+    width: 40%;
+    left: 30%;
+    top: 100px;
+    background-color: #ecf0f1;
+    position: relative;
+}
+
+.loginText {
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    text-wrap: wrap;
+}
+
+.email {
+    background-color: #d9d9d9;
+    position: absolute;
+    font-size: 20px;
+    padding: 8px;
+    left: 10%;
+    top: 30%;
+    width: 80%;
+    height: 50px;
+}
+
+.password {
+    background-color: #d9d9d9;
+    position: absolute;
+    font-size: 20px;
+    padding: 8px;
+    left: 10%;
+    top: 50%;
+    width: 80%;
+    height: 50px;
+}
+
+.forgot {
+    color: #003366;
+    position: absolute;
+    left: 10%;
+    top: 70%;
+}
+
+.forgot:hover {
+    color: #004487;
+}
+
+.button {
+    background-color: #003366;
+    position: absolute;
+    font-size: 20px;
+    width: 80%;
+    height: 50px;
+    top: 80%;
+    left: 10%;
+    border-radius: 100px;
+    color: white;
+}
+
+.button:hover {
+    background-color: #004487;
+}
