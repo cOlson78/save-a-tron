@@ -5,8 +5,8 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 
-def scraper(query):
-    url = "https://www.amazon.com/s?k=" + query
+def scraper(query,dept):
+    url = "https://www.amazon.com/s?k=" + query + "&i=" + dept
 
     # Set up Chrome options to include headers
     chrome_options = Options()
@@ -85,6 +85,15 @@ def scraper(query):
                 "url": product_url
             }
             result.append(d)
+   
+    # Extract brand names
+    brands_section = soup.find('div', {'id': 'brandsRefinements'})
+    brands = []
+    if brands_section:
+        brand_tags = brands_section.find_all('span', class_='a-size-base a-color-base')
+        for brand_tag in brand_tags:
+            brands.append(brand_tag.text.strip())
+    result.append(brands)
 
     driver.quit()
     return result
