@@ -3,7 +3,7 @@
 }
 .filters {
     background-color: #ECF0F1;
-    width: 150px;
+    width: 170px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -12,12 +12,13 @@
 }
 
 .filter-category-header {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 8px;
 }
 
 .filter-item {
     margin: 5px;
+    font-size: 12px;
 }
 
 .filter-item input {
