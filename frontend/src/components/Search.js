@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import searchIcon from '../assets/search-icon.png';
 import microphoneIcon from '../assets/microphone.png';
 import "../styles/Search.css";
+import { AudioRecorder } from 'react-audio-voice-recorder';
+import RecordAudio from './RecordAudio';
 import { categories } from "../constants";
 
 const Search = ({ onSearch }) => {
@@ -42,7 +44,10 @@ const Search = ({ onSearch }) => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}  // Update query state
                 />
-                <img className='microphone' alt='Microphone' src={microphoneIcon}/>
+                <RecordAudio/>
+
+                {/* Temporarily commented out */}
+                {/* <img className='microphone' alt='Microphone' src={microphoneIcon}/>*/}
             </div>
 
             <div className='search-icon-container' onClick={handleSearch}>

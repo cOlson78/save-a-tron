@@ -16,13 +16,21 @@ const Home = () => {
     const handleSearch = async (query, category) => {
         setLoading(true); // Start loading screen
 
+        //We can delete this code later, it's only here for testing purposes
+        try{
+            const return_response = await axios.get(`/returning_result?query=${query}`);
+            console.log(return_response.data);
+        } catch (error) {
+            console.error('Error fetching search query', error);
+        }
+
         try {
             const dept = category !== "all" ? category : ""; 
             const response = await axios.get(`/search?query=${query}&dept=${dept}`);
 
             console.log(`the query is ${query} and dept is ${dept}`);
             console.log('Search results:', response.data); // Log the search results
-            
+
             // Filter out products with null values for img, price, and title
             const filteredResults = response.data.filter((product) => {
                 return product.img !== null && product.price !== null && product.title !== null;
