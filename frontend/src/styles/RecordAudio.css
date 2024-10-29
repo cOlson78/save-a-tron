@@ -1,0 +1,14 @@
+.microphone_img{
+    background-color:transparent
+}
+
+.microphone_img_use{
+    background-color: blue;
+}
+
+.transcribe_btn{
+    float:left;
+    text-align: center;
+    color:white;
+    background-color: blue;
+}

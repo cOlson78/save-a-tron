@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import searchIcon from '../assets/search-icon.png';
-import microphoneIcon from '../assets/microphone.png';
 import "../styles/Search.css";
-import { AudioRecorder } from 'react-audio-voice-recorder';
 import RecordAudio from './RecordAudio';
 import { categories } from "../constants";
 
@@ -17,6 +15,10 @@ const Search = ({ onSearch }) => {
             onSearch(query, selectedCategory);  // Pass the query to the parent component (Home.js)
         }
     };
+
+    const handleAudio = (transcribed_result) => {
+        setQuery(transcribed_result);
+    }
 
     return (
         <div className="search-bar">  
@@ -44,7 +46,7 @@ const Search = ({ onSearch }) => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}  // Update query state
                 />
-                <RecordAudio/>
+                <RecordAudio onFinish={handleAudio}/>
 
                 {/* Temporarily commented out */}
                 {/* <img className='microphone' alt='Microphone' src={microphoneIcon}/>*/}
@@ -58,3 +60,4 @@ const Search = ({ onSearch }) => {
 };
 
 export default Search;
+

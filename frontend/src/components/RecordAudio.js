@@ -1,48 +1,78 @@
-import React, { useState } from 'react';
-import axios from "axios";
-import { AudioRecorder, useAudioRecorder} from 'react-audio-voice-recorder';
+import React, { useState, useRef } from 'react';
+import microphoneIcon from '../assets/microphone.png';
+import "../styles/RecordAudio.css";
 
-const RecordAudio = () => {
 
-    const do_transcription = async (audioFile) => {
-        try{
-            const audio_response = await axios.get(`/send_to_transcribe?audioFile=${audioFile}`);
-            console.log(audio_response.data);
-        } catch (error) {
-            console.error('Error transcribing audio', error);
+const RecordAudio = ({ onFinish }) => {
+      //Loads hooks
+      const [isRecording, setIsRecording] = useState(false);
+      const [audioBlob, setAudioBlob] = useState(null);
+      const mediaRecorderRef = useRef(null);
+
+      //Function for recording audio
+      const startRecording = async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorderRef.current = new MediaRecorder(stream);
+        setIsRecording(true);
+
+        mediaRecorderRef.current.ondataavailable = (event) => {
+          setAudioBlob(event.data);
+        };
+
+        mediaRecorderRef.current.start();
+      };
+
+      //Stops recording
+      const stopRecording = () => {
+        if (mediaRecorderRef.current) {
+          mediaRecorderRef.current.stop();
+          mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
         }
-    }
+        setIsRecording(false);
 
-    const recorderControls = useAudioRecorder()
-    const addAudioElement = (blob) => {
-      const url = URL.createObjectURL(blob);
-      const audio = document.createElement("audio");
-      audio.src = url;
-      audio.controls = true;
-    //   document.body.appendChild(audio);
-      let newUrl = url.substring(27, url.length);
-      let finalUrl = newUrl.concat(".weba");
-      let start = "file:";
-      finalUrl = start.concat(url);
-      console.log("This is the audiofile: ");
-      do_transcription(finalUrl);
-    };
-  
-    return (
-        <div style={{height:"40px"}}>
-        <AudioRecorder
-          onRecordingComplete={(blob) => addAudioElement(blob)}
-          recorderControls={recorderControls}
-          downloadOnSavePress={true}
-          //downloadFileExtension="mp3"
-          showVisualizer={true}
-        />
-        {/* <br />
-        <button onClick={recorderControls.stopRecording}>Stop recording</button>
-        <br /> */}
-    
-      </div>
-    )
-  }
+        sendAudio();
+      };
+      
+
+      const sendAudio = async () => {
+    	if (!audioBlob) {
+    	  console.log("No audio recorded.");
+    	  return;
+    	}
+      
+    	console.log("Sending audio...");
+      
+    	const formData = new FormData();
+    	formData.append("audio", audioBlob, "recording.wav");
+      
+      //Tries to send the data to the backend
+    	try {
+    	  const response = await fetch("http://localhost:5000/send_to_transcribe", {
+          method: "POST",
+          body: formData,
+    	  });
+      
+    	  if (!response.ok) {
+          console.log("Error in response:", response.statusText);
+          return;
+    	  }
+      
+    	  const data = await response.json();
+    	  alert(`Transcription: ${data.transcription}`);
+        onFinish(data.transcription);
+    	} catch (error) {
+    	    console.error("Error sending audio:", error);
+    	}
+      };
+      
+
+      return (
+        <div className="audio_div">
+          <button className="rec_btn" onClick={isRecording ? stopRecording : startRecording}>
+            {isRecording ? <img className="microphone_img_use" src={microphoneIcon} alt="Microphone"></img> : <img className="microphone_img" src={microphoneIcon} alt="Microphone"></img>}
+          </button>
+        </div>
+      );
+  };
 
 export default RecordAudio;

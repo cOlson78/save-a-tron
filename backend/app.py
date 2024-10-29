@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from whisperAI import transcribe_audio
 from scraper import scraper
 from flask_cors import CORS
+import tempfile
+
 
 
 app = Flask(__name__)
@@ -25,9 +27,12 @@ def returning_result():
    query = request.args.get('query')
    return "You searched for " + str(query)
 
-@app.route('/send_to_transcribe')
+@app.route('/send_to_transcribe', methods=['POST'])
 def send_to_transcribe():
-     
-     # Tries to get the audio file and send it to the whisper API
-     audioFile = request.args.get('audioFile')
-     return transcribe_audio(audioFile)
+
+    audio_file = request.files['audio']
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
+        audio_file.save(temp_audio.name)
+        transcription = transcribe_audio(temp_audio.name)
+    
+    return jsonify({"transcription": transcription['text']})
