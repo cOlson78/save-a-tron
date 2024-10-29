@@ -97,6 +97,8 @@ def scraper(query,dept):
         for brand_tag in brand_tags:
             brands.append(brand_tag.text.strip())
     result.append(brands)
+    
+    connection.close() 
 
 
     

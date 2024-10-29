@@ -7,6 +7,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 
+
 @app.route('/search')
 def search():
    query = request.args.get('query')
