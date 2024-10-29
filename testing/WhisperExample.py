@@ -10,7 +10,7 @@ x = datetime.datetime.now()
 # Get the file path
 mypath = os.path.abspath(__file__)
 mydir = os.path.dirname(mypath)
-audioFile = os.path.join(mydir, "Recording.mp3")
+audioFile = os.path.join(mydir, "Recording.webm")
 
 # Loads in whisper audio to be transcribed
 model = whisper.load_model("tiny.en")
