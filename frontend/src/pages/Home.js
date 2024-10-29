@@ -6,53 +6,40 @@ import ProductCard from "../components/ProductCard";
 import "../styles/Home.css";
 
 const Home = () => {
-    // hard coded filters list
-    const filters = {
-        Brand: [
-            { label: "Apple", value: "apple" },
-            { label: "Adidas", value: "adidas" },
-            { label: "Shein", value: "shein" },
-            { label: "Nike", value: "nike" },
-            { label: "Brandy", value: "brandy" },
-        ],
-        Color: [
-            { label: "Red", value: "red" },
-            { label: "Orange", value: "orange" },
-            { label: "Green", value: "green" },
-            { label: "Blue", value: "blue" },
-            { label: "Black", value: "black" },
-        ],
-    };
-
+   
     // To store the list of products from the scraper
     const [productList, setProductList] = useState([]);
     const [loading, setLoading] = useState(false); // State for loading
+    const [brandFilters, setBrandFilters] = useState([]); // automatically populate the filters based on the search
 
     // Function to handle the search query
-    const handleSearch = async (query) => {
+    const handleSearch = async (query, category) => {
         setLoading(true); // Start loading screen
 
         try {
-            const response = await axios.get(`/search?query=${query}`);
+            const dept = category !== "all" ? category : ""; 
+            const response = await axios.get(`/search?query=${query}&dept=${dept}`);
+
+            console.log(`the query is ${query} and dept is ${dept}`);
             console.log('Search results:', response.data); // Log the search results
             
             // Filter out products with null values for img, price, and title
             const filteredResults = response.data.filter((product) => {
                 return product.img !== null && product.price !== null && product.title !== null;
             })
-            .map((product) => {
-                // Shorten title
-                let shortTitle = product.title.split(",")[0];
-                const titleWords = shortTitle.split(" "); // split the title into words
-                    
-                if (titleWords.length > 15) { // not more than 15 words
-                    // If more than 15 words, cut it off at the 15th spot
-                    shortTitle = titleWords.slice(0, 15).join(" ");
-                }
-                return { ...product, title: shortTitle };
-            });
 
             console.log('Filtered results:', filteredResults); // Log the filtered results
+
+            // Get the list of brand filters
+            const filters = filteredResults.pop(); // the last item in the list is the list of filters
+            if (filters) {
+                const brands = filters.map(brand => ({ label: brand, value: brand.toLowerCase() }));
+                setBrandFilters(brands); // Update brand filters
+                console.log(brands);
+            }
+
+           
+
             setProductList(filteredResults); // Update the product list based on filtered results
         } catch (error) {
             console.error('Error fetching search results:', error);
@@ -92,7 +79,7 @@ const Home = () => {
 
                     <div className="filter-section">
                         <div className="filter-header">Filters</div>
-                        <Filters filterList={filters} />
+                        <Filters filterList={brandFilters} />
                     </div>
                 </>
             )}
