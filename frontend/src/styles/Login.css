@@ -3,17 +3,32 @@
 }
 
 .login {
-    height: 450px;
-    width: 40%;
-    left: 30%;
-    top: 100px;
-    background-color: #ecf0f1;
     position: relative;
+    margin: auto;
+    width: 700px;
+    height: 450px;
+    top: 150px;
+    background-color: #ecf0f1;
+}
+
+@media only screen and (max-width: 900px) {
+    .login {
+        width: 400px;
+
+        .forgot {
+            top: 63%;
+        }
+
+        .create {
+            left: 10%;
+            top: 71%;
+        }
+    }  
 }
 
 .loginTextHeader {
     text-align: center;
-    padding: 50px 10px 10px 10px;
+    padding: 30px 10px 10px 10px;
     text-wrap: wrap;
 }
 
@@ -23,7 +38,7 @@
     font-size: 20px;
     padding: 8px;
     left: 10%;
-    top: 30%;
+    top: 25%;
     width: 80%;
     height: 50px;
 }
@@ -34,7 +49,7 @@
     font-size: 20px;
     padding: 8px;
     left: 10%;
-    top: 50%;
+    top: 45%;
     width: 80%;
     height: 50px;
 }
@@ -42,8 +57,8 @@
 .forgot {
     color: #003366;
     position: absolute;
-    left: 10%;
     top: 70%;
+    left: 10%;
 }
 
 .forgot:hover .create:hover{
@@ -53,8 +68,8 @@
 .create {
     color: #003366;
     position: absolute;
-    right: 10%;
     top: 70%;
+    right: 10%;
 }
 
 .button {
