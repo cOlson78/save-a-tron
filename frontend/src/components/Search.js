@@ -41,6 +41,11 @@ const Search = ({ onSearch }) => {
                     className='search-input'
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}  // Update query state
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSearch(query);
+                        }
+                    }}
                 />
                 <img className='microphone' alt='Microphone' src={microphoneIcon}/>
             </div>

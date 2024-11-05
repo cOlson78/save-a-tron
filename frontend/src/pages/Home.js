@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Searchbar from "../components/Search";
 import Filters from "../components/Filters";
@@ -8,30 +8,27 @@ import "../styles/Home.css";
 const Home = () => {
    
     // To store the list of products from the scraper
-    const [productList, setProductList] = useState([]);
-    const [loading, setLoading] = useState(false); // State for loading
+    const [productList, setProductList] = useState([]); // list of products
+    const [loading, setLoading] = useState(false); // State for loading screen
     const [brandFilters, setBrandFilters] = useState([]); // automatically populate the filters based on the search
+    const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products based on brand selected
+    const [selectedBrands, setSelectedBrands] = useState([]); // Track selected brands
 
     // Function to handle the search query
     const handleSearch = async (query, category) => {
         setLoading(true); // Start loading screen
 
         try {
-            const dept = category !== "all" ? category : ""; 
+            const dept = category !== "all" ? category : ""; // determine the department
             const response = await axios.get(`/search?query=${query}&dept=${dept}`);
-
-            console.log(`the query is ${query} and dept is ${dept}`);
-            console.log('Search results:', response.data); // Log the search results
             
             // Filter out products with null values for img, price, and title
             const filteredResults = response.data.filter((product) => {
                 return product.img !== null && product.price !== null && product.title !== null;
             })
 
-            console.log('Filtered results:', filteredResults); // Log the filtered results
-
             // Get the list of brand filters
-            const filters = filteredResults.pop(); // the last item in the list is the list of filters
+            const filters = filteredResults.pop(); // the last item in the list is the list of brand filters
             if (filters) {
                 const brands = filters.map(brand => ({ label: brand, value: brand.toLowerCase() }));
                 setBrandFilters(brands); // Update brand filters
@@ -39,8 +36,9 @@ const Home = () => {
             }
 
            
-
             setProductList(filteredResults); // Update the product list based on filtered results
+            setFilteredProducts(filteredResults); // Initialize filtered products with original list
+    
         } catch (error) {
             console.error('Error fetching search results:', error);
         } finally {
@@ -48,6 +46,28 @@ const Home = () => {
         }
 
     };
+
+    // Effect to filter the products when the selected brand changes
+    useEffect(() => {
+        if (selectedBrands.length === 0) {
+            setFilteredProducts(productList); // Show original results when no brands are selected
+        } else {
+            const filtered = productList.filter((product) =>
+                selectedBrands.some((brand) => product.title.toLowerCase().includes(brand)) // check if the product title includes the selected brand
+            );
+            setFilteredProducts(filtered);
+        }
+    }, [selectedBrands, productList]);
+
+    // Handle brand selection/deselection
+    const handleBrandChange = (brand) => {
+        setSelectedBrands((prevSelected) =>
+            prevSelected.includes(brand)
+                ? prevSelected.filter((b) => b !== brand) // Remove brand if already selected
+                : [...prevSelected, brand] // Add brand if not selected
+        );
+    };
+
 
     return (
         <div className="body">
@@ -63,8 +83,8 @@ const Home = () => {
                 <>
                     <div className="results-sort">
                         <p className="results-found"> 
-                            {productList.length > 0
-                            ? `${productList.length} results found`
+                            {filteredProducts.length > 0
+                            ? `${filteredProducts.length} results found`
                             : "No results found"}
                         </p>
 
@@ -79,12 +99,13 @@ const Home = () => {
 
                     <div className="filter-section">
                         <div className="filter-header">Filters</div>
-                        <Filters filterList={brandFilters} />
+                        <Filters filterList={brandFilters} 
+                        onBrandChange={handleBrandChange}/>
                     </div>
                 </>
             )}
             
-            <ProductCard products={productList} />
+            <ProductCard products={filteredProducts} />
         </div>
     );
 };
