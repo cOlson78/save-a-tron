@@ -13,6 +13,24 @@ const Home = () => {
     const [brandFilters, setBrandFilters] = useState([]); // automatically populate the filters based on the search
     const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products based on brand selected
     const [selectedBrands, setSelectedBrands] = useState([]); // Track selected brands
+    const [selectedSortValue, setSelectedSortValue] = useState("lowToHigh"); // default sort
+
+    // Handle Sorting
+    const handleSort = (sortValue, products = filteredProducts) => {
+        setSelectedSortValue(sortValue); // Update sort selection
+
+        // Sort products by price based on 'sortValue'
+        const sortedProducts = [...products].sort((a, b) => {
+            const priceA = parseFloat(a.price.replace('$', '')); // Convert price to a number
+            const priceB = parseFloat(b.price.replace('$', ''));// Convert price to a number
+            return sortValue === "lowToHigh"
+                ? priceA - priceB
+                : priceB - priceA;
+        });
+
+        setProductList(sortedProducts);
+        setFilteredProducts(sortedProducts);
+    };
 
     // Function to handle the search query
     const handleSearch = async (query, category) => {
@@ -35,9 +53,8 @@ const Home = () => {
                 console.log(brands);
             }
 
-           
-            setProductList(filteredResults); // Update the product list based on filtered results
-            setFilteredProducts(filteredResults); // Initialize filtered products with original list
+            handleSort(selectedSortValue, filteredResults);
+            
     
         } catch (error) {
             console.error('Error fetching search results:', error);
@@ -58,6 +75,8 @@ const Home = () => {
             setFilteredProducts(filtered);
         }
     }, [selectedBrands, productList]);
+
+    
 
     // Handle brand selection/deselection
     const handleBrandChange = (brand) => {
@@ -90,7 +109,10 @@ const Home = () => {
 
                         <div className="sort-dropdown">
                             <label htmlFor="sort">Sort by: </label>
-                            <select id="sort">
+                            <select id="sort"
+                                value={selectedSortValue} // Bind dropdown to state
+                                onChange={(e) => handleSort(e.target.value)} // Handle selection change
+                            >
                                 <option value="lowToHigh">Price: Low to High</option>
                                 <option value="highToLow">Price: High to Low</option>
                             </select>
