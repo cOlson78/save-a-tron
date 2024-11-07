@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-#from db import connect_to_db, insert_product
+from db import connect_to_db, insert_product
 import time
 
 def scraper(query,dept):
@@ -85,8 +85,8 @@ def scraper(query,dept):
                 "price": f"${price}" if price else None,
                 "url": product_url
             }
-            #connection = connect_to_db()
-            #insert_product(connection, d)
+            connection = connect_to_db()
+            insert_product(connection, d)
             result.append(d)
    
     # Extract brand names
@@ -98,7 +98,7 @@ def scraper(query,dept):
             brands.append(brand_tag.text.strip())
     result.append(brands)
     
-    #connection.close() 
+    connection.close() 
 
     driver.quit()
     return result

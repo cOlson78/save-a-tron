@@ -29,13 +29,13 @@ const RecordAudio = ({ onFinish }) => {
           mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
         }
         setIsRecording(false);
-
         sendAudio();
       };
       
-
+      //If no audio is recorded, return an error
       const sendAudio = async () => {
     	if (!audioBlob) {
+        onFinish("Error transcribing audio")
     	  console.log("No audio recorded.");
     	  return;
     	}
@@ -47,18 +47,21 @@ const RecordAudio = ({ onFinish }) => {
       
       //Tries to send the data to the backend
     	try {
+         //Changes the placeholder text to this
+         onFinish("Transcribing audio...");
+
+         //Fetches the method from the backend
     	  const response = await fetch("http://localhost:5000/send_to_transcribe", {
           method: "POST",
           body: formData,
     	  });
-      
+
     	  if (!response.ok) {
           console.log("Error in response:", response.statusText);
           return;
     	  }
       
     	  const data = await response.json();
-    	  alert(`Transcription: ${data.transcription}`);
         onFinish(data.transcription);
     	} catch (error) {
     	    console.error("Error sending audio:", error);

@@ -1,4 +1,5 @@
 import React, { useState } from "react"; 
+import {Link} from 'react-router-dom';
 import "../styles/ProductCard.css"; 
 
 const ProductCard = ({ products }) => {
@@ -41,9 +42,9 @@ const ProductCard = ({ products }) => {
               Visit Store
             </a>
           </div>
-
-          <button className="cheaper-options-button">View Cheaper Options</button> {/* Button for viewing cheaper options */}
-          
+          <Link to="/cheaper-option" state={{product:product}}>
+            <button className="cheaper-options-button">View Cheaper Options</button> {/* Button for viewing cheaper options */}
+          </Link>
         </div>
       ))}
     </div>
