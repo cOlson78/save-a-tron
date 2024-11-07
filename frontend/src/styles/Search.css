@@ -7,6 +7,16 @@
     width: 800px;
   }
 
+@media only screen and (max-width: 900px) {
+  .search-bar {
+    width: 400px;
+
+    .search-input{
+      font-size: 12px;
+    }
+  }
+}
+
   .search-bar, .category, .search-icon-container{
     height: 40px;
   }

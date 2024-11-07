@@ -100,5 +100,11 @@ def scraper(query,dept):
     
     connection.close() 
 
+
+    
+
+
+    connection.close()  # Close the database connection
+
     driver.quit()
     return result

@@ -5,7 +5,7 @@
     background-color: #ECF0F1;
     width: 170px;
     padding: 10px;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     gap: 20px;
    

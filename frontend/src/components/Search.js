@@ -45,6 +45,11 @@ const Search = ({ onSearch }) => {
                     className='search-input'
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}  // Update query state
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSearch(query);
+                        }
+                    }}
                 />
                 <RecordAudio onFinish={handleAudio}/>
 

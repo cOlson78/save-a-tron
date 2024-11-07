@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from whisperAI import transcribe_audio
 from scraper import scraper
+
 from flask_cors import CORS
 import tempfile
+
 
 
 
@@ -12,6 +14,7 @@ CORS(app)  # Enable CORS for all routes
 # Allows the app to be ran in debug
 if __name__ == '__main__':
 	app.run(debug=True)
+
 
 
 @app.route('/search')
