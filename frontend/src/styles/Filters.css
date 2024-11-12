@@ -7,7 +7,12 @@
     padding: 10px;
     flex-direction: column;
     gap: 20px;
-   
+}
+
+@media only screen and (max-width: 900px) {
+    .filter{
+        width: 120px;
+    }
 }
 
 @media only screen and (max-width: 900px) {
