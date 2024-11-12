@@ -9,6 +9,7 @@ const Home = () => {
    
     // To store the list of products from the scraper
     const [productList, setProductList] = useState([]); // list of products
+    const [initialProductList, setInitialProductList] = useState([]); // to store the initial relevance sort order
     const [loading, setLoading] = useState(false); // State for loading screen
     const [brandFilters, setBrandFilters] = useState([]); // automatically populate the filters based on the search
     const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products based on brand selected
@@ -19,14 +20,24 @@ const Home = () => {
     const handleSort = (sortValue, products = filteredProducts) => {
         setSelectedSortValue(sortValue); // Update sort selection
 
-        // Sort products by price based on 'sortValue'
-        const sortedProducts = [...products].sort((a, b) => {
-            const priceA = parseFloat(a.price.replace('$', '')); // Convert price to a number
-            const priceB = parseFloat(b.price.replace('$', ''));// Convert price to a number
-            return sortValue === "lowToHigh"
-                ? priceA - priceB
-                : priceB - priceA;
-        });
+        let sortedProducts;
+
+        switch (sortValue) {
+            case "lowToHigh":
+                sortedProducts = [...products].sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
+                break;
+            case "highToLow":
+                sortedProducts = [...products].sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+                break;
+            case "asc":
+                sortedProducts = [...products].sort((a, b) => a.title.localeCompare(b.title));
+                break;
+            case "desc":
+                sortedProducts = [...products].sort((a, b) => b.title.localeCompare(a.title));
+                break;
+            default: // Relevance (original order of the products)
+                sortedProducts = [...initialProductList];
+        }
 
         setProductList(sortedProducts);
         setFilteredProducts(sortedProducts);
@@ -39,7 +50,6 @@ const Home = () => {
         //We can delete this code later, it's only here for testing purposes
         try{
             const return_response = await axios.get(`/returning_result?query=${query}`);
-            console.log(return_response.data);
         } catch (error) {
             console.error('Error fetching search query', error);
         }
@@ -48,10 +58,6 @@ const Home = () => {
             const dept = category !== "all" ? category : ""; 
             const response = await axios.get(`/search?query=${query}&dept=${dept}`);
 
-            console.log(`the query is ${query} and dept is ${dept}`);
-            console.log('Search results:', response.data); // Log the search results
-
-            
             // Filter out products with null values for img, price, and title
             const filteredResults = response.data.filter((product) => {
                 return product.img !== null && product.price !== null && product.title !== null;
@@ -62,10 +68,10 @@ const Home = () => {
             if (filters) {
                 const brands = filters.map(brand => ({ label: brand, value: brand.toLowerCase() }));
                 setBrandFilters(brands); // Update brand filters
-                console.log(brands);
             }
 
-            handleSort(selectedSortValue, filteredResults);
+            setInitialProductList(filteredResults);
+            handleSort("relevance", initialProductList); // sort by relevance by default
             
     
         } catch (error) {
@@ -125,8 +131,11 @@ const Home = () => {
                                 value={selectedSortValue} // Bind dropdown to state
                                 onChange={(e) => handleSort(e.target.value)} // Handle selection change
                             >
+                                <option value="relevance">Relevance</option>
                                 <option value="lowToHigh">Price: Low to High</option>
                                 <option value="highToLow">Price: High to Low</option>
+                                <option value="asc">Name(A-Z)</option>
+                                <option value="desc">Name(Z-A)</option>
                             </select>
                         </div>
                     </div>
