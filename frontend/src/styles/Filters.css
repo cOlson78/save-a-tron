@@ -5,10 +5,14 @@
     background-color: #ECF0F1;
     width: 170px;
     padding: 10px;
-    /* display: flex; */
     flex-direction: column;
     gap: 20px;
-   
+}
+
+@media only screen and (max-width: 900px) {
+    .filter{
+        width: 120px;
+    }
 }
 
 .filter-category-header {
