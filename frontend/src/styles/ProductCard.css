@@ -1,5 +1,7 @@
 .products {
     display: grid;
+    position: absolute;
+    left: 20%;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 30px;
     column-gap: 0;
@@ -8,12 +10,14 @@
 @media only screen and (max-width: 1200px) {
     .products{
         grid-template-columns: repeat(2, 1fr);
+        left: 25%;
     }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
     .products{
         grid-template-columns: repeat(1, 1fr);
+        left: 35%;
     }
 }
 
