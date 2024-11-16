@@ -42,7 +42,7 @@ const ProductCard = ({ products }) => {
               Visit Store
             </a>
           </div>
-          <Link to="/cheaper-option" state={{product:product, productTitle:product.title}}>
+          <Link to="/cheaper-option" state={{product:product}}>
             <button className="cheaper-options-button">View Cheaper Options</button> {/* Button for viewing cheaper options */}
           </Link>
         </div>

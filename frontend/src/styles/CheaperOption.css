@@ -159,14 +159,15 @@ h1{
     column-gap: 0;
 }
 
-.product-card, .product-card img {
+.product-card-cheaper, .product-card-cheaper img {
     width: 300px;
     position: relative; /* Position relative to allow absolute positioning of the heart */
 }
 
-.product-card {
+.product-card-cheaper {
     background-color: #ECF0F1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 5px;
 }
 
 .product-image {
