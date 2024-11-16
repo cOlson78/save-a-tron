@@ -36,7 +36,13 @@ const Home = () => {
                 sortedProducts = [...products].sort((a, b) => b.title.localeCompare(a.title));
                 break;
             default: // Relevance (original order of the products)
-                sortedProducts = [...initialProductList];
+                if(initialProductList.length == 0) {
+                    sortedProducts = [...products];
+                }
+                else {
+                    sortedProducts = [...initialProductList];
+                }
+                
         }
 
         setProductList(sortedProducts);
@@ -71,7 +77,7 @@ const Home = () => {
             }
 
             setInitialProductList(filteredResults);
-            handleSort("relevance", initialProductList); // sort by relevance by default
+            handleSort("relevance", filteredResults); // sort by relevance by default
             
     
         } catch (error) {
