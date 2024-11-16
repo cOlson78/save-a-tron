@@ -7,7 +7,7 @@
     margin: auto;
     height: 450px;
     width: 700px;
-    top: 150px;
+    top: 10vh;
     background-color: #ecf0f1;
 }
 
@@ -31,6 +31,20 @@
             font-size: 18px;
         }
     }
+}
+
+@media only screen and (max-width: 425px) {
+    .forgotBox {
+        width: 320px;
+
+        .forgotEmail{
+            top: 60%;
+        }
+
+        .continue {
+            top: 80%;
+        }
+    } 
 }
 
 .forgotTextHeader {

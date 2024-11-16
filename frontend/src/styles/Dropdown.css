@@ -1,0 +1,32 @@
+.dropDown {
+    position: absolute;
+    height: 70px;
+    width: 100px;
+    background-color: #ecf0f1;
+    top: 4rem;
+    right: .7rem;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid gray;
+}
+
+.dropDown::before {
+    content: '';
+    position: absolute;
+    top: -.72rem;
+    right: 1rem;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    background-color: #ecf0f1;
+    border-left: 1px solid gray;
+    border-top: 1px solid gray;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    color: #003366;
+}

@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 56vw;
+    width: 79.3vw;
     margin: 0 auto;
     margin-top: 1rem;
 }
@@ -18,20 +18,25 @@
 }
 
 .filter-header {
+    align-items: center;
+    text-align: center;
+    margin: auto;
     color: #ECF0F1;
     font-size: 22px;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.filter-section {
-    margin-left: 1.5rem;
-    float: left;
+@media only screen and (max-width: 900px) {
+  .results-found{
+    font-size: 12px;
+  }
 }
 
 .products {
-   margin: 0 auto;
+   margin: auto;
    width: 80%;
-   margin-top: 35px;
+   margin-top: 30px;
 }
 
 .loading-overlay {
@@ -145,4 +150,14 @@
 .sort-dropdown select:hover {
     cursor: pointer;
    
+}
+
+@media only screen and (max-width: 900px) {
+    .sort-dropdown label {
+      font-size: 12px;
+    }
+
+    .sort-dropdown select{
+      font-size: 12px;
+    }
 }
