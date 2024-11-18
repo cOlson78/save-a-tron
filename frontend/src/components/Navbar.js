@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import "../styles/Navbar.css";
 import Hamburg from "../assets/Hamburg.png";
 import Dropdown from "./Dropdown";
+import { useUser } from '../AuthContext';
 
 const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false);
+
+    const { userEmail, logout } = useUser();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -46,6 +49,15 @@ const Navbar = () => {
                     openMenu && <Dropdown />
                 }
             </div>
+                    {/* Display user data if logged in */}
+            {userEmail ? (
+            <div>
+          <span>{userEmail}</span>
+          <button onClick={logout}>Logout</button>
+        </div>
+            ) : (
+        <span>Please log in</span>
+        )}
         </nav>
     );
 };

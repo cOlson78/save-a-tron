@@ -11,6 +11,7 @@ import Reset from "./pages/Reset";
 import "./App.css";
 import "./index.css";
 import CheaperOption from "./pages/CheaperOption";
+import { UserProvider } from './AuthContext'; 
 
 // function to verify the react and flask connection
 // Commented out for now 
@@ -52,6 +53,7 @@ import CheaperOption from "./pages/CheaperOption";
 
 function App() {
 	return (
+		<UserProvider>
 		<Router>
 			<Navbar/>
 			<Routes>
@@ -64,6 +66,7 @@ function App() {
 				<Route path="/cheaper-option" element={<CheaperOption/>}/>
 			</Routes>
 		</Router>
+		</UserProvider>
 	);
 }
 

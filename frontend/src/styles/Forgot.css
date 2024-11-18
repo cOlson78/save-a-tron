@@ -51,12 +51,14 @@
     text-align: center;
     padding: 40px 10px 10px 10px;
     text-wrap: wrap;
+    color:black;
 }
 
 .forgotText {
     text-align: center;
     padding: 30px 10px 10px 10px;
     text-wrap: wrap;
+    color:black;
 }
 
 .forgotEmail {
