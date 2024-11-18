@@ -9,8 +9,6 @@ const CheaperOption = () => {
     const [productList, setProductList] = useState([]); // list of products
     const [loading, setLoading] = useState(false); // State for loading screen
     const [product, setProduct] = useState("");
-    const [productTitle, setProductTitle] = useState("");
-    const [itemPrice, setItemPrice] = useState("");
 
     // This useEffect is used for preselecting a product from the homepage and loading the products in
     useEffect(() => {
@@ -18,50 +16,52 @@ const CheaperOption = () => {
         if (location.state && location.state.product) {
           setProduct(location.state.product);
         }
-        if(location.state && location.state.productTitle){
-          setProductTitle(location.state.productTitle);
-        }
+
+        //Set the title
+        const productTitle = location.state.product.title;
 
         //Set the price
         const numericPrice = parseFloat(location.state.product.price.replace('$', ''));
         console.log(numericPrice);
-        setItemPrice(numericPrice);
         
         //Load the items in
-        loadItems(product.title);
+        loadItems(numericPrice, productTitle);
 
     }, [location.state]);
 
     // Function to load in the items
-    const loadItems = async () => {
+    const loadItems = async (numericPrice, productTitle) => {
       setLoading(true); // Start loading screen
 
       try {
-          const response = await axios.get(`/search?query=${product.title}&dept=""`);
+          const response = await axios.get(`/search?query=${productTitle}&dept=""`);
           console.log('Search results:', response.data); // Log the search results
 
           // Filter out products with null values for img, price, and title 
           const filteredResults = response.data.filter((product) => {
             return product.img !== null && product.price !== null && product.title !== null;
           })
+          filteredResults.pop(); //Gets rid of the last element in the list (it will be invalid)
 
-          // //Filters out items that are more expensive than the product
-          // const cheaperFilteredResults = filteredResults.filter((product) => {
-          //   //Initalize variables
-          //   let curProductPriceString;
-          //   let curProductPrice;
+          //Filters out items that are more expensive than the product
+          const cheaperFilteredResults = filteredResults.filter((product) => {
+            //Initalize variables
+            let curProductPriceString;
+            let curProductPrice;
 
-          //   //Get product price
-          //   curProductPriceString = product.price;
-          //   curProductPrice = parseFloat(curProductPriceString.substring(1));
-          //   console.log(curProductPrice);
+            //Get product price
+            curProductPriceString = product.price;
+            curProductPrice = parseFloat(curProductPriceString.substring(1));
+            console.log(curProductPrice);
 
-          //   //Return true if the price is less
-          //   console.log(parseFloat(curProductPrice) < parseFloat(itemPrice));
-          //   return parseFloat(curProductPrice) < parseFloat(itemPrice);
-          // })
+            //Return true if the price is less
+            console.log(parseFloat(curProductPrice) < parseFloat(numericPrice));
+            return parseFloat(curProductPrice) < parseFloat(numericPrice);
+          })
 
-          setProductList(filteredResults);
+          console.log(cheaperFilteredResults);
+
+          setProductList(cheaperFilteredResults);
       } catch (error) {
           console.error('Error fetching search results:', error);
       } finally {
@@ -81,33 +81,49 @@ const CheaperOption = () => {
           <div className="currentItemSection">
             <h1>Current Item</h1>
             <div className="product-card">
-            <img className="product-image" src={product.img} alt={product.name} /> {/* Product image */}
+              <img className="product-image" src={product.img} alt={product.name} /> {/* Product image */}
 
-            <div className="product-text">
-              <div className="product-name-price"> 
-                <h2 className="product-name">{product.title}</h2> 
-                <h2 className="product-price">{product.price}</h2> 
+              <div className="product-text">
+                <div className="product-name-price"> 
+                  <h2 className="product-name">{product.title}</h2> 
+                  <h2 className="product-price">{product.price}</h2> 
+                </div>
+                <a
+                  href={product.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="product-link" 
+                >
+                  Visit Store
+                </a>
               </div>
-              <a
-                href={product.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="product-link" 
-              >
-                Visit Store
-              </a>
-            </div>
             
             </div>
           </div>
           <div className="compareItemSection">
-              <h1>Compared items go here</h1>
+              <h1>Cheaper items</h1>
               <div className="cheaperItems"> 
                 <ul>
                   {productList.map((product, index) => (
-                    <li className = "cheaperListItem">{product.title} {product.price} 
-                    <br></br> 
-                    <a href={product.url}><img className="cheaperImage" src={product.img}></img></a></li>
+                    <div className="product-card-cheaper">
+                      <img className="product-image" src={product.img} alt={product.name} /> {/* Product image */}
+        
+                      <div className="product-text">
+                        <div className="product-name-price"> 
+                          <h2 className="product-name">{product.title}</h2> 
+                          <h2 className="product-price">{product.price}</h2> 
+                        </div>
+                        <a
+                          href={product.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="product-link" 
+                        >
+                          Visit Store
+                        </a>
+                      </div>
+                    
+                    </div>
                   ))}
                 </ul>
               </div>
