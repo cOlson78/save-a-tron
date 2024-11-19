@@ -28,13 +28,14 @@ const Login = () => {
                 navigate('/');  // Navigate to home page after login
             }
         } catch (error) {
-            setErrorMessage(error.response?.data.error || 'Error during login.');
+            setErrorMessage(error.response?.data.error || 'Error during login, please try again!');
         }
     };
 
     return (
         <div className="login">
             <h1 className='loginTextHeader'>Login</h1>
+            {errorMessage && <p className="login-error-message">{errorMessage}</p>}
             <form onSubmit={logSubmit}>
                 <input
                     type="text"
@@ -56,7 +57,7 @@ const Login = () => {
             </form>
             <Link to="/forgot" className='forgot'>Forgot Password?</Link>
             <Link to="/create" className='create'>Create Account?</Link>
-            {errorMessage && <p>{errorMessage}</p>}
+            
         </div>
     );
 };

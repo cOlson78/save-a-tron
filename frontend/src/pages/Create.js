@@ -32,7 +32,7 @@ const Create = () => {
         } catch (error) {
             if (error.response) {
                 // server responds but failed
-                setErrorMessage(error.response.data.error || "Error creating account.");
+                setErrorMessage(error.response.data.error || "Error creating account, please try again!");
             } else {
                 //failed to connect to server
                 console.error("Error:", error);

@@ -96,3 +96,8 @@
 .button:hover {
     background-color: #004487;
 }
+
+.login-error-message {
+    text-align: center;
+    color: red;
+}
