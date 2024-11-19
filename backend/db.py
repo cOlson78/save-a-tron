@@ -3,7 +3,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from mysql.connector import Error
-from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
