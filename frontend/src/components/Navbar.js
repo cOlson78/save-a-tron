@@ -26,8 +26,8 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-left nav-item">
-                <Link to="/login" className='nav-login'>Login</Link>
-            </div>   
+                <Link to="/wishlist" className='nav-wishlist'>Wishlist</Link>
+            </div>  
 
             <div className="navbar-center">
                 <Link to="/" className='nav-login'>
@@ -37,11 +37,21 @@ const Navbar = () => {
                     </div>
                 </Link>
             </div>
-        
-            <div className="navbar-right nav-item">
-                <Link to="/wishlist" className='nav-wishlist'>Wishlist</Link>
-            </div>
 
+            <div className="navbar-right nav-item">
+                  {/* If logged in, display current user */}
+                {userEmail ? (
+                    <div className='user-logout'>
+                        <p className='current-user'>Current: {userEmail}</p>
+                        <button onClick={logout} className='log-out-button'>Logout</button>
+                    </div>
+                    
+                ) : (
+                    // else display log in button
+                    <Link to="/login" className='nav-login'>Login</Link>
+                   
+                )}
+            </div> 
 
             <div className="menuIcon">
                 <img src={Hamburg} alt="Menu" onClick= {() => setOpenMenu((prev) => !prev)}/>
@@ -49,15 +59,8 @@ const Navbar = () => {
                     openMenu && <Dropdown />
                 }
             </div>
-                    {/* Display user data if logged in */}
-            {userEmail ? (
-            <div>
-          <span>{userEmail}</span>
-          <button onClick={logout}>Logout</button>
-        </div>
-            ) : (
-        <span>Please log in</span>
-        )}
+                  
+            
         </nav>
     );
 };

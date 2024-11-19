@@ -89,3 +89,12 @@
 .continue:hover {
     background-color: #004487;
 }
+
+.successMessage {
+    text-align: center;
+}
+
+.errorMessage {
+    text-align: center;
+    color: red;
+}

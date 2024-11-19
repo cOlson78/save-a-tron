@@ -25,7 +25,7 @@
 
 .createText {
     text-align: center;
-    padding: 30px 10px 10px 10px;
+    padding: 20px 10px 10px 10px;
     text-wrap: wrap;
     color: black;
 }
@@ -79,4 +79,15 @@
 
 .continue:hover {
     background-color: #004487;
+}
+
+.forgot {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.errorMessage {
+    text-align: center;
+    color: red;
+    margin-top: -5px;
 }

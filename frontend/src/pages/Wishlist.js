@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "../AuthContext"; 
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Wishlist.css";
 import ProductCard from "../components/ProductCard";  // Assuming you want to reuse your ProductCard component
@@ -8,7 +9,16 @@ const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState([]);  // Initialize as an empty array
   const [loading, setLoading] = useState(true);  // Loading state to show a spinner while fetching data
   const [error, setError] = useState(null);  // To capture any errors during the fetch
+  const navigate = useNavigate();
   const { userEmail } = useUser();
+
+  // redirect to login page if user is not logged in
+  useEffect(() => {
+    if (userEmail == null) {
+      navigate("/login"); 
+    }
+  }, [userEmail, navigate]); 
+
 
   useEffect(() => {
     const fetchWishlist = async () => {
@@ -24,7 +34,6 @@ const Wishlist = () => {
 
         setLoading(false);
       } catch (err) {
-        alert('Please log in and add items to your wishlist')
         setError("Failed to load wishlist items");
         setLoading(false);
       }
