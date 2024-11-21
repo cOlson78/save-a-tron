@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ProductCard from "../components/ProductCard";
+//import ProductCard from "../components/ProductCard";
 import { useLocation } from "react-router-dom"
 import "../styles/CheaperOption.css";
 
@@ -80,13 +80,13 @@ const CheaperOption = () => {
         <div className="container">
           <div className="currentItemSection">
             <h1>Current Item</h1>
-            <div className="product-card">
-              <img className="product-image" src={product.img} alt={product.name} /> {/* Product image */}
+            <div className="product-card-wishlist">
+              <img className="product-image-wishlist" src={product.img} alt={product.name} /> {/* Product image */}
 
-              <div className="product-text">
-                <div className="product-name-price"> 
-                  <h2 className="product-name">{product.title}</h2> 
-                  <h2 className="product-price">{product.price}</h2> 
+              <div className="product-text-wishlist">
+                <div className="product-name-price-wishlist"> 
+                  <h2 className="product-name-wishlist">{product.title}</h2> 
+                  <h2 className="product-price-wishlist">{product.price}</h2> 
                 </div>
                 <a
                   href={product.url} 
@@ -106,12 +106,12 @@ const CheaperOption = () => {
                 <ul>
                   {productList.map((product, index) => (
                     <div className="product-card-cheaper">
-                      <img className="product-image" src={product.img} alt={product.name} /> {/* Product image */}
+                      <img className="product-image-wishlist" src={product.img} alt={product.name} /> {/* Product image */}
         
-                      <div className="product-text">
-                        <div className="product-name-price"> 
-                          <h2 className="product-name">{product.title}</h2> 
-                          <h2 className="product-price">{product.price}</h2> 
+                      <div className="product-text-wishlist">
+                        <div className="product-name-price-wishlist"> 
+                          <h2 className="product-name-wishlist">{product.title}</h2> 
+                          <h2 className="product-price-wishlist">{product.price}</h2> 
                         </div>
                         <a
                           href={product.url} 

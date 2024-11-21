@@ -3,6 +3,7 @@ import axios from "axios";
 import Searchbar from "../components/Search";
 import Filters from "../components/Filters";
 import ProductCard from "../components/ProductCard";
+import Instructions from "../components/Instructions";
 import "../styles/Home.css";
 
 const Home = () => {
@@ -15,10 +16,15 @@ const Home = () => {
     const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products based on brand selected
     const [selectedBrands, setSelectedBrands] = useState([]); // Track selected brands
     const [selectedSortValue, setSelectedSortValue] = useState("lowToHigh"); // default sort
+    const [instructionsShow, setInstructionShow] = useState(true);
 
     // Handle Sorting
     const handleSort = (sortValue, products = filteredProducts) => {
         setSelectedSortValue(sortValue); // Update sort selection
+
+        if (instructionsShow == true){
+            setInstructionShow((prev) => !prev)
+        }
 
         let sortedProducts;
 
@@ -154,6 +160,10 @@ const Home = () => {
                 </>
             )}
             
+            {
+               instructionsShow && <Instructions />
+            }
+
             <ProductCard products={filteredProducts} />
         </div>
     );
