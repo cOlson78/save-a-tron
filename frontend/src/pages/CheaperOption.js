@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import ProductCard from "../components/ProductCard";
+//import CheaperProductCard from "../components/CheaperProductCard";
 import { useLocation } from "react-router-dom"
 import "../styles/CheaperOption.css";
 
@@ -100,14 +100,14 @@ const CheaperOption = () => {
             
             </div>
           </div>
-          <div className="compareItemSection">
+
+          {/* <CheaperProductCard /> */}
+            <div className="compareItemSection">
               <h1>Cheaper items</h1>
               <div className="cheaperItems"> 
-                <ul>
                   {productList.map((product, index) => (
                     <div className="product-card-cheaper">
-                      <img className="product-image-wishlist" src={product.img} alt={product.name} /> {/* Product image */}
-        
+                      <img className="product-image-wishlist" src={product.img} alt={product.name} />
                       <div className="product-text-wishlist">
                         <div className="product-name-price-wishlist"> 
                           <h2 className="product-name-wishlist">{product.title}</h2> 
@@ -122,12 +122,10 @@ const CheaperOption = () => {
                           Visit Store
                         </a>
                       </div>
-                    
                     </div>
                   ))}
-                </ul>
               </div>
-          </div>
+            </div>
         </div>
       </div>
     );
