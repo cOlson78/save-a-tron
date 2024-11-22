@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import noImage from '../assets/noImage.jpg';
 import Searchbar from "../components/Search";
 import Filters from "../components/Filters";
 import ProductCard from "../components/ProductCard";
@@ -55,6 +56,7 @@ const Home = () => {
         setFilteredProducts(sortedProducts);
     };
 
+
     // Function to handle the search query
     const handleSearch = async (query, category) => {
         setLoading(true); // Start loading screen
@@ -82,8 +84,24 @@ const Home = () => {
                 setBrandFilters(brands); // Update brand filters
             }
 
-            setInitialProductList(filteredResults);
-            handleSort("relevance", filteredResults); // sort by relevance by default
+            //Fixes product cards with invalid images, making it the placeholder image
+            const resultsWithFixedImages = filteredResults.map(product => {
+                if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg')){
+                    return {
+                        ...product,
+                        img: noImage // Change to the noImage image
+                    };
+                }
+                console.log(product.title);
+                console.log(product.img);
+                return product;
+            });
+
+            setInitialProductList(resultsWithFixedImages);
+            handleSort("relevance", resultsWithFixedImages); // sort by relevance by default
+
+            // setInitialProductList(filteredResults);
+            // handleSort("relevance", filteredResults); // sort by relevance by default
             
     
         } catch (error) {
@@ -126,7 +144,6 @@ const Home = () => {
                 </div>
             )}
             <Searchbar onSearch={handleSearch} />
-
             {productList.length > 0 && ( 
                 // do not show until after a search is done
                 <>
