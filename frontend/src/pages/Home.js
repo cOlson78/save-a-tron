@@ -124,6 +124,19 @@ const Home = () => {
         }
     }, [selectedBrands, productList]);
 
+    // Used to test the keyword
+    // useEffect(() => {
+    //     // Fetch sample keywords from the backend
+    //     axios
+    //         .get("/suggest")
+    //         .then((response) => {
+    //             console.log("Fetched Keywords:", response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching keywords:", error);
+    //         });
+    // }, []); // Empty dependency array ensures this runs once on load
+
     
 
     // Handle brand selection/deselection
