@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import searchIcon from '../assets/search-icon.png';
 import axios from "axios";
 import { Autocomplete, TextField } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 import "../styles/Search.css";
 import RecordAudio from './RecordAudio';
 import { categories } from "../constants";
@@ -75,15 +76,20 @@ const Search = ({ onSearch }) => {
                                     handleSearch(query);
                                 }
                             }}
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        {params.InputProps.endAdornment}
+                                    
+                                        <RecordAudio onFinish={handleAudio} />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
-
-                        <RecordAudio onFinish={handleAudio}/>
                     </>
-
                 }
-
             />
-                
 
                 {/* Temporarily commented out */}
                 {/* <img className='microphone' alt='Microphone' src={microphoneIcon}/>*/}
