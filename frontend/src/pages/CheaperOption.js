@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 //import CheaperProductCard from "../components/CheaperProductCard";
+import noImage from '../assets/noImage.jpg';
 import { useLocation } from "react-router-dom"
 import "../styles/CheaperOption.css";
 
@@ -54,14 +55,27 @@ const CheaperOption = () => {
             curProductPrice = parseFloat(curProductPriceString.substring(1));
             console.log(curProductPrice);
 
-            //Return true if the price is less
-            console.log(parseFloat(curProductPrice) < parseFloat(numericPrice));
-            return parseFloat(curProductPrice) < parseFloat(numericPrice);
-          })
+            //Return true if the price is less or if it is equal to 1 (this means that the price is above 1000 dollars)
+            console.log(parseFloat(curProductPrice) < parseFloat(numericPrice) && parseFloat(curProductPrice) != 1);
+            return parseFloat(curProductPrice) < parseFloat(numericPrice) && parseFloat(curProductPrice) != 1;
+          });
 
-          console.log(cheaperFilteredResults);
+          //Fixes product cards with invalid images, making it the placeholder image
+          const resultsWithFixedImages = cheaperFilteredResults.map(product => {
+            if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg')){
+                return {
+                    ...product,
+                    img: noImage // Change to the noImage image
+                };
+            }
+            console.log(product.title);
+            console.log(product.img);
+            return product;
+          });
 
-          setProductList(cheaperFilteredResults);
+          console.log(resultsWithFixedImages);
+
+          setProductList(resultsWithFixedImages);
       } catch (error) {
           console.error('Error fetching search results:', error);
       } finally {
