@@ -1,8 +1,8 @@
-.dropDown {
+ .dropDown {
     z-index: 2;
     position: absolute;
-    height: 70px;
-    width: 100px;
+    height: auto;
+    width: auto;
     background-color: #ecf0f1;
     top: 4rem;
     right: .4rem;
@@ -26,8 +26,29 @@
 
 ul {
     list-style-type: none;
+    font-size: 16px;
+    text-align: center;
 }
 
-li {
+
+.dropdown-menu a, .dropdown-menu button {
     color: #003366;
+    text-decoration: none;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dropdown-menu a:hover, .dropdown-menu button:hover {
+    text-decoration: underline;
+}  
+
+.current-user {
+    margin-top: 10px;
+}
+
+.log-out-button {
+    margin-top: 2px;
 }

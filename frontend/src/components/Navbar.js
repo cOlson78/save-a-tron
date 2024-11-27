@@ -7,7 +7,6 @@ import { useUser } from '../AuthContext';
 
 const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false);
-
     const { userEmail, logout } = useUser();
 
     useEffect(() => {
@@ -42,7 +41,7 @@ const Navbar = () => {
                   {/* If logged in, display current user */}
                 {userEmail ? (
                     <div className='user-logout'>
-                        <p className='current-user'>Current: {userEmail}</p>
+                        <p className='current-user'>User: {userEmail}</p>
                         <button onClick={logout} className='log-out-button'>Logout</button>
                     </div>
                     
@@ -56,7 +55,7 @@ const Navbar = () => {
             <div className="menuIcon">
                 <img src={Hamburg} alt="Menu" onClick= {() => setOpenMenu((prev) => !prev)}/>
                 {
-                    openMenu && <Dropdown />
+                    openMenu && <Dropdown userEmail={userEmail} logout={logout}/>
                 }
             </div>
                   
