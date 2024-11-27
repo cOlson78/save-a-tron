@@ -99,9 +99,6 @@ const Home = () => {
 
             setInitialProductList(resultsWithFixedImages);
             handleSort("relevance", resultsWithFixedImages); // sort by relevance by default
-
-            // setInitialProductList(filteredResults);
-            // handleSort("relevance", filteredResults); // sort by relevance by default
             
     
         } catch (error) {
