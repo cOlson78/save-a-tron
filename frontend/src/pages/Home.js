@@ -23,10 +23,6 @@ const Home = () => {
     const handleSort = (sortValue, products = filteredProducts) => {
         setSelectedSortValue(sortValue); // Update sort selection
 
-        if (instructionsShow == true){
-            setInstructionShow((prev) => !prev)
-        }
-
         let sortedProducts;
 
         switch (sortValue) {
@@ -71,6 +67,7 @@ const Home = () => {
         try {
             const dept = category !== "all" ? category : ""; 
             const response = await axios.get(`/search?query=${query}&dept=${dept}`);
+            console.log("The user searched for " + query);
 
             // Filter out products with null values for img, price, and title
             const filteredResults = response.data.filter((product) => {
@@ -92,8 +89,6 @@ const Home = () => {
                         img: noImage // Change to the noImage image
                     };
                 }
-                console.log(product.title);
-                console.log(product.img);
                 return product;
             });
 
@@ -105,6 +100,10 @@ const Home = () => {
             console.error('Error fetching search results:', error);
         } finally {
             setLoading(false); // Stop loading screen after request is complete
+            if (instructionsShow === true){
+                setInstructionShow(false);
+            }
+            
         }
 
     };
@@ -121,18 +120,6 @@ const Home = () => {
         }
     }, [selectedBrands, productList]);
 
-    // Used to test the keyword
-    // useEffect(() => {
-    //     // Fetch sample keywords from the backend
-    //     axios
-    //         .get("/suggest")
-    //         .then((response) => {
-    //             console.log("Fetched Keywords:", response.data);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error fetching keywords:", error);
-    //         });
-    // }, []); // Empty dependency array ensures this runs once on load
 
     
 
@@ -188,6 +175,7 @@ const Home = () => {
             )}
             
             {
+                
                instructionsShow && <Instructions />
             }
 
