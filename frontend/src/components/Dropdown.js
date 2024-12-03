@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import "../styles/Dropdown.css";
 import { Link } from 'react-router-dom';
 
-const DropDown = () => {
+const DropDown = ({userEmail, logout}) => {
     return (
-        <div className='flex flex-col dropDown'>
-            <ul className='flex flex-col gap-4'>
+        <div className='dropDown'>
+            <ul className='dropdown-menu'>
                 <li><Link to="/wishlist">Wishlist</Link></li>
-                <li><Link to="/login">Login</Link></li>
+                {userEmail ? (
+                    <>
+                        <li className='current-user'>User: {userEmail}</li>
+                        <li>
+                            <button onClick={logout} className='log-out-button'>Logout</button>
+                        </li>
+                    </>
+                ) : (
+                    <li>
+                        <Link to="/login" className='nav-login'>Login</Link>
+                    </li>
+                )}
             </ul>
         </div>
     )

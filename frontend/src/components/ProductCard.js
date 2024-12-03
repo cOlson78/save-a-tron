@@ -47,7 +47,7 @@ const ProductCard = ({ products }) => {
             className={`heart-icon ${wishlist[index] ? "added" : ""}`} // Class based on wishlist status
             onClick={() => toggleWishlist(index)} // Call toggle function with the current index
             aria-label={wishlist[index] ? "Remove from wishlist" : "Add to wishlist"} 
-          >
+            >
             {wishlist[index] ? "♥" : "♡"} 
           </span>
 

@@ -252,3 +252,19 @@ def cache_query(connection, query):
     print(results)
     print(len(results))
     return len(results) > 0
+
+def fetch_keywords(connection, term):
+    """Fetch up to 10 keywords from the database."""
+    cursor = connection.cursor()
+    try:
+        # SQL query to fetch 10 keywords
+        sql = """SELECT keyword FROM keyword WHERE keyword LIKE %s LIMIT 10;"""
+        cursor.execute(sql, (term + '%',))
+        results = cursor.fetchall()
+        # Return keywords as a list
+        return [row[0] for row in results]
+    except Error as e:
+        print(f"Error fetching sample keywords: {e}")
+        return []
+    finally:
+        cursor.close()

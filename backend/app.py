@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 #from whisperAI import transcribe_audio
 from scraper import scraper
-from db import connect_to_db,create_user,login,add_wishlist,smtp_send, password_reset
+from db import connect_to_db,create_user,login,add_wishlist,smtp_send, password_reset, fetch_keywords
 from flask_cors import CORS
 import tempfile
 import mysql.connector
@@ -185,4 +185,15 @@ def handle_reset():
     connection.close()
 
     return{"message": "Password was reset"}, 200
+
+@app.route('/suggest', methods=['GET'])
+def get_keywords():
+    term = request.args.get('term')  # Get query parameter
+    connection = connect_to_db()
+    if connection:
+        keywords = fetch_keywords(connection, term)
+        connection.close()
+        return jsonify(keywords)
+    else:
+        return jsonify([]), 500
     

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import noImage from '../assets/noImage.jpg';
 import Searchbar from "../components/Search";
 import Filters from "../components/Filters";
 import ProductCard from "../components/ProductCard";
+import Instructions from "../components/Instructions";
 import "../styles/Home.css";
 
 const Home = () => {
@@ -15,10 +17,15 @@ const Home = () => {
     const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products based on brand selected
     const [selectedBrands, setSelectedBrands] = useState([]); // Track selected brands
     const [selectedSortValue, setSelectedSortValue] = useState("lowToHigh"); // default sort
+    const [instructionsShow, setInstructionShow] = useState(true);
 
     // Handle Sorting
     const handleSort = (sortValue, products = filteredProducts) => {
         setSelectedSortValue(sortValue); // Update sort selection
+
+        if (instructionsShow == true){
+            setInstructionShow((prev) => !prev)
+        }
 
         let sortedProducts;
 
@@ -49,6 +56,7 @@ const Home = () => {
         setFilteredProducts(sortedProducts);
     };
 
+
     // Function to handle the search query
     const handleSearch = async (query, category) => {
         setLoading(true); // Start loading screen
@@ -76,8 +84,21 @@ const Home = () => {
                 setBrandFilters(brands); // Update brand filters
             }
 
-            setInitialProductList(filteredResults);
-            handleSort("relevance", filteredResults); // sort by relevance by default
+            //Fixes product cards with invalid images, making it the placeholder image
+            const resultsWithFixedImages = filteredResults.map(product => {
+                if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg')){
+                    return {
+                        ...product,
+                        img: noImage // Change to the noImage image
+                    };
+                }
+                console.log(product.title);
+                console.log(product.img);
+                return product;
+            });
+
+            setInitialProductList(resultsWithFixedImages);
+            handleSort("relevance", resultsWithFixedImages); // sort by relevance by default
             
     
         } catch (error) {
@@ -100,6 +121,19 @@ const Home = () => {
         }
     }, [selectedBrands, productList]);
 
+    // Used to test the keyword
+    // useEffect(() => {
+    //     // Fetch sample keywords from the backend
+    //     axios
+    //         .get("/suggest")
+    //         .then((response) => {
+    //             console.log("Fetched Keywords:", response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching keywords:", error);
+    //         });
+    // }, []); // Empty dependency array ensures this runs once on load
+
     
 
     // Handle brand selection/deselection
@@ -120,7 +154,6 @@ const Home = () => {
                 </div>
             )}
             <Searchbar onSearch={handleSearch} />
-
             {productList.length > 0 && ( 
                 // do not show until after a search is done
                 <>
@@ -154,6 +187,10 @@ const Home = () => {
                 </>
             )}
             
+            {
+               instructionsShow && <Instructions />
+            }
+
             <ProductCard products={filteredProducts} />
         </div>
     );
