@@ -11,6 +11,26 @@ const CheaperOption = () => {
     const [loading, setLoading] = useState(false); // State for loading screen
     const [product, setProduct] = useState("");
 
+    //workaround to mimick the effect of a sticky element as the built in sticky element was not working
+    window.addEventListener('scroll', () => {
+      const fixedElement = document.querySelector('.currentItemSection');
+      const fixedOffset = fixedElement.offsetTop;
+    
+      if (window.innerWidth < 720) {
+        if (window.scrollY > fixedOffset) {
+          fixedElement.style.position = 'fixed';
+          fixedElement.style.top = '0';
+        } else {
+          fixedElement.style.position = 'static';
+          fixedElement.style.top = 'auto';
+        }
+      }
+      else{
+        fixedElement.style.position = 'fixed';
+        fixedElement.style.top = 0;
+      }
+    });
+
     // This useEffect is used for preselecting a product from the homepage and loading the products in
     useEffect(() => {
         // Check if a pre-selected value was passed via Link state
@@ -92,7 +112,7 @@ const CheaperOption = () => {
           </div>
         )}
         <div className="container">
-          <div className="currentItemSection">
+          <div className="currentItemSection" >
             <h1>Current Item</h1>
             <div className="product-card-wishlist">
               <img className="product-image-wishlist" src={product.img} alt={product.name} /> {/* Product image */}

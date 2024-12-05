@@ -23,8 +23,8 @@ const Home = () => {
     const handleSort = (sortValue, products = filteredProducts) => {
         setSelectedSortValue(sortValue); // Update sort selection
 
-        if (instructionsShow == true){
-            setInstructionShow((prev) => !prev)
+        if (instructionsShow === true){
+            setInstructionShow(false)
         }
 
         let sortedProducts;
@@ -188,7 +188,7 @@ const Home = () => {
             )}
             
             {
-               instructionsShow && <Instructions />
+                instructionsShow && <Instructions />
             }
 
             <ProductCard products={filteredProducts} />
