@@ -4,9 +4,8 @@
     width: 360px;
     padding-left: 30px;
     height: 100vh;
-    margin-top: 200px;
-    /* margin-right:auto;
-    margin-left:auto; */
+    padding-top: 130px;
+    margin-top: 70px;
 }
 
 .currentItemSection h1 { 
@@ -14,7 +13,6 @@
     width: 100%;
     padding-bottom: 10px; 
     padding-right: 30px;
-    /* padding-left: 55px;  */
     text-align: center;
 } 
 

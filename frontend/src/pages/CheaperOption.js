@@ -16,18 +16,12 @@ const CheaperOption = () => {
       const fixedElement = document.querySelector('.currentItemSection');
       const fixedOffset = fixedElement.offsetTop;
     
-      if (window.innerWidth < 720) {
-        if (window.scrollY > fixedOffset) {
-          fixedElement.style.position = 'fixed';
-          fixedElement.style.top = '0';
-        } else {
-          fixedElement.style.position = 'static';
-          fixedElement.style.top = 'auto';
-        }
-      }
-      else{
+      if (window.scrollY > fixedOffset) {
         fixedElement.style.position = 'fixed';
-        fixedElement.style.top = 0;
+        fixedElement.style.top = '0';
+      } else {
+        fixedElement.style.position = 'absolute';
+        fixedElement.style.top = 'auto';
       }
     });
 
