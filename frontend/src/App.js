@@ -8,6 +8,7 @@ import Wishlist from "./pages/Wishlist";
 import Forgot from "./pages/Forgot";
 import Create from "./pages/Create";
 import Reset from "./pages/Reset";
+import Feedback from "./pages/Feedback";
 import "./App.css";
 import "./index.css";
 import CheaperOption from "./pages/CheaperOption";
@@ -64,6 +65,7 @@ function App() {
 				<Route path="/create" element={<Create/>}/>
 				<Route path="/reset" element={<Reset/>}/>
 				<Route path="/cheaper-option" element={<CheaperOption/>}/>
+				<Route path="/feedback" element={<Feedback/>}/>
 			</Routes>
 		</Router>
 		</UserProvider>
