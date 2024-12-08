@@ -66,7 +66,16 @@ const Home = () => {
 
         try {
             const dept = category !== "all" ? category : ""; 
-            const response = await axios.get(`/search?query=${query}&dept=${dept}`);
+
+            
+            let response;
+
+            if(dept === "Electronics" || dept === "Cell Phones & Accessories" || dept === "Software" || dept === "Video Games"){
+                response = await axios.get(`/search_bestbuy?query=${query}&dept=${dept}`);
+            } else {
+                response = await axios.get(`/search?query=${query}&dept=${dept}`);
+            }
+
             console.log("The user searched for " + query);
 
             // Filter out products with null values for img, price, and title
@@ -83,7 +92,7 @@ const Home = () => {
 
             //Fixes product cards with invalid images, making it the placeholder image
             const resultsWithFixedImages = filteredResults.map(product => {
-                if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg')){
+                if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg') && !product.img.endsWith('webp')){
                     return {
                         ...product,
                         img: noImage // Change to the noImage image

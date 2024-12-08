@@ -21,6 +21,8 @@ const Search = ({ onSearch }) => {
     };
 
     const handleAudio = (transcribed_result) => {
+        console.log(transcribed_result);
+        alert("You have said: " + transcribed_result);
         setQuery(transcribed_result);
     }
 
@@ -90,9 +92,6 @@ const Search = ({ onSearch }) => {
                     </>
                 }
             />
-
-                {/* Temporarily commented out */}
-                {/* <img className='microphone' alt='Microphone' src={microphoneIcon}/>*/}
           
 
             <div className='search-icon-container' onClick={handleSearch}>

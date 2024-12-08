@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 import re
 
-def scraper(query, dept):
+def scraper_bestbuy(query, dept):
     url = f"https://www.bestbuy.com/site/searchpage.jsp?st={query}&id=pcat17071"
 
     # Set up Chrome options with headless mode

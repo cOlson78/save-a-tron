@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-#from whisperAI import transcribe_audio
+from whisperAI import transcribe_audio
 from scraper import scraper
+from best_buy import scraper_bestbuy
 from db import connect_to_db,create_user,login,add_wishlist,smtp_send, password_reset, fetch_keywords
 from flask_cors import CORS
 import tempfile
@@ -17,7 +18,16 @@ if __name__ == '__main__':
 	app.run(debug=True)
 
 
+# Searching with best buy
+@app.route('/search_bestbuy')
+def search_bestbuy():
+    query = request.args.get('query')
+    dept = request.args.get('dept')
 
+    results = scraper_bestbuy(query,dept)
+    return jsonify(results)
+
+# Normal scaper (amazon)
 @app.route('/search')
 def search():
    query = request.args.get('query')
@@ -31,8 +41,8 @@ def returning_result():
    query = request.args.get('query')
    return "You searched for " + str(query)
 
-#@app.route('/send_to_transcribe', methods=['POST'])
-#def send_to_transcribe():
+@app.route('/send_to_transcribe', methods=['POST'])
+def send_to_transcribe():
 
    audio_file = request.files['audio']
    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
