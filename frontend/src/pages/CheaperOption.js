@@ -36,7 +36,7 @@ const CheaperOption = () => {
         const productTitle = location.state.product.title;
 
         //Set the price
-        const numericPrice = parseFloat(location.state.product.price.replace('$', ''));
+        const numericPrice = parseFloat(location.state.product.price.replace('$', '').split(",").join(""));
         console.log(numericPrice);
         
         //Load the items in
@@ -62,11 +62,13 @@ const CheaperOption = () => {
           const cheaperFilteredResults = filteredResults.filter((product) => {
             //Initalize variables
             let curProductPriceString;
+            let curProductPriceCommas;
             let curProductPrice;
 
             //Get product price
             curProductPriceString = product.price;
-            curProductPrice = parseFloat(curProductPriceString.substring(1));
+            curProductPriceCommas = curProductPriceString.substring(1);
+            curProductPrice = parseFloat(curProductPriceCommas.split(",").join(""));
             console.log(curProductPrice);
 
             //Return true if the price is less or if it is equal to 1 (this means that the price is above 1000 dollars)
