@@ -59,13 +59,14 @@ const Search = ({ onSearch }) => {
             <Autocomplete
                 freeSolo
                 options={suggestions}
-                onInputChange={(e) => setQuery(e.target.value)} 
+                onInputChange={(e, newInputValue) => setQuery(newInputValue)}
                 className='search-input-container'
                 onChange={(event, value) => {
                     if (value) {
-                      handleSearch(value); // Trigger search on option select
+                        setQuery(value);
+                        handleSearch(value);
                     }
-                  }}
+                }}
                 renderInput={(params) => 
                 
                     <>
