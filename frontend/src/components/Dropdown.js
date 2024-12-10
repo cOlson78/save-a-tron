@@ -9,10 +9,7 @@ const DropDown = ({userEmail, logout}) => {
                 <li><Link to="/wishlist">Wishlist</Link></li>
                 {userEmail ? (
                     <>
-                        <li className='current-user'>User: {userEmail}</li>
-                        <li>
-                            <button onClick={logout} className='log-out-button'>Logout</button>
-                        </li>
+                        <li><Link to="/profile" className='current-user'>User: {userEmail}</Link></li>
                     </>
                 ) : (
                     <li>

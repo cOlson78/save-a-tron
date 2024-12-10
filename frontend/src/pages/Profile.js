@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useUser } from "../AuthContext";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Link } from 'react-router-dom';
 import noImage from '../assets/noImage.jpg';
 import "../styles/Profile.css";
