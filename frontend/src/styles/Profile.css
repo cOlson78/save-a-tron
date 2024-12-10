@@ -1,0 +1,58 @@
+.profileDiv {
+    position: relative;
+    margin: auto;
+    height: 100vh;
+    width: 800px;
+    background-color: #ecf0f1;
+}
+
+.profileImage img {
+    width: 150px;
+    border-radius: 50%;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+input {
+    width: 400px;
+    border: solid black 1px;
+}
+
+.profileInfo p span,
+.profileInfo p input {
+    position: relative;
+    border: 1px solid black;
+    background-color: white;
+    padding: 2px; 
+}
+
+.user {
+    position: absolute;
+    top: 100px;
+    left: 250px;
+}
+
+.username {
+    position: absolute;
+    top: 125px;
+    left: 250px;
+}
+
+.username input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: solid black 1px;
+}
+
+.edit {
+    position: absolute;
+    bottom: 100px;
+    left: 250px;
+}
+
+.wishlist {
+    position: absolute;
+    top: 150;
+    left: 250px;
+}

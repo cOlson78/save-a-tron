@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Wishlist from "./pages/Wishlist";
 import Forgot from "./pages/Forgot";
 import Create from "./pages/Create";
+import Profile from "./pages/Profile";
 import Reset from "./pages/Reset";
 import Feedback from "./pages/Feedback";
 import "./App.css";
@@ -66,6 +67,7 @@ function App() {
 				<Route path="/reset" element={<Reset/>}/>
 				<Route path="/cheaper-option" element={<CheaperOption/>}/>
 				<Route path="/feedback" element={<Feedback/>}/>
+				<Route path="/profile" element={<Profile/>}/>
 			</Routes>
 		</Router>
 		</UserProvider>
