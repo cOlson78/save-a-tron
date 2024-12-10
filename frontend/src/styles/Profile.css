@@ -6,7 +6,7 @@
     background-color: #ecf0f1;
 }
 
-.profileImage img {
+.profileImage{
     width: 150px;
     border-radius: 50%;
     margin-top: 50px;
@@ -45,14 +45,20 @@ input {
     border: solid black 1px;
 }
 
+.wishlist {
+    position: absolute;
+    top: 130;
+    left: 250px;
+}
+
 .edit {
     position: absolute;
     bottom: 100px;
     left: 250px;
 }
 
-.wishlist {
+.logoutButton {
     position: absolute;
-    top: 150;
-    left: 250px;
+    bottom: 100px;
+    left: 300px;
 }

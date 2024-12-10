@@ -9,6 +9,7 @@ import "../styles/Profile.css";
 const Profile = () => {
     const [editMode, setEditMode] = useState(false);
     const [userName, setUserName] = useState("Your Current Username"); // Replace with actual user data
+    const { userEmail, logout } = useUser();
 
     const handleEditClick = () => {
         setEditMode(!editMode);
@@ -37,6 +38,9 @@ const Profile = () => {
                 </p>
                 <p className="edit">
                     <span onClick={handleEditClick}>{editMode ? "Save" : "Edit"}</span>
+                </p>
+                <p className="logoutButton">
+                    <button onClick={logout} className='log-out-button'>Logout</button>
                 </p>
             </div>
         </div>
