@@ -58,7 +58,7 @@ def scraper_bestbuy(query, dept):
                 
                 # Get URL from nested <a> tag within <h4>
                 product_url_tag = title_tag.find_element(By.TAG_NAME, 'a')
-                product_url = "https://www.bestbuy.com" + product_url_tag.get_attribute('href')
+                product_url = product_url_tag.get_attribute('href')
             except:
                 pass
 
