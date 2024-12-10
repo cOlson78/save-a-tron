@@ -37,6 +37,8 @@ const Profile = () => {
                 <p className="edit">
                     <span onClick={handleEditClick}>{editMode ? "Save" : "Edit"}</span>
                 </p>
+                
+                {/* This logout button bellow should redirect to the home page */}
                 <p className="logoutButton">
                     <button onClick={logout} className='log-out-button'>Logout</button>
                 </p>
