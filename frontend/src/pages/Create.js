@@ -57,7 +57,7 @@ const Create = () => {
                 <input 
                     type="password" 
                     className='createPassword' 
-                    placeholder="Password (8+ characters)" 
+                    placeholder="Password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
