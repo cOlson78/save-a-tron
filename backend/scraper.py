@@ -115,5 +115,5 @@ def scraper(query,dept):
     connection.close()  # Close the database connection
 
     driver.quit()
-    print(result)
+  
     return result

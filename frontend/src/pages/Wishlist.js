@@ -53,7 +53,7 @@ const Wishlist = () => {
         setWishlist(new Array(response.data.length).fill(true)); // Set all hearts to filled if items are loaded
         setLoading(false);
       } catch (err) {
-        setError("Failed to load wishlist items");
+        setError("Add some items to your wishlist!");
         setLoading(false);
       }
     };
@@ -64,9 +64,8 @@ const Wishlist = () => {
 
 
   if (error) {
-    return <p>{error}</p>;
+    return <p style={{ backgroundColor: 'white' }}>{error}</p>;
   }
-
   return (
     <div className="body">
       <ProductCard

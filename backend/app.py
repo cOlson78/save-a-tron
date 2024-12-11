@@ -100,9 +100,9 @@ def handle_wishlist():
     try:
        
         item_user_data = request.json
-        
+        print(item_user_data)
         result = add_wishlist(connection, item_user_data)
-
+        print(result)
         if result == "Fail":
             return jsonify({'error': 'Failed to add item to wishlist'}), 400
 
