@@ -9,7 +9,7 @@ import "../styles/Profile.css";
 const Profile = () => {
     const [editMode, setEditMode] = useState(false);
     const { userEmail, logout, login } = useUser();
-    const [userName, setUserName] = useState(userEmail); // Initially setting to email as username
+    const [userName, setUserName] = useState(userEmail.split('@')[0]); // Initially setting to email as username
     const navigate = useNavigate();
 
     const handleEditClick = () => {
@@ -36,7 +36,7 @@ const Profile = () => {
             if (response.status === 200) {
                 // Assuming the server returns the updated username
                 login(userName)
-                console.log("Username updated successfully.");
+                
                 setEditMode(false); // Switch off edit mode after successful update
             }
         } catch (error) {

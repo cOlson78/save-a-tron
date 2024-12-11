@@ -54,7 +54,7 @@ const Navbar = () => {
             <div className="menuIcon">
                 <img src={Hamburg} alt="Menu" onClick= {() => setOpenMenu((prev) => !prev)}/>
                 {
-                    openMenu && <Dropdown userEmail={userEmail} logout={logout}/>
+                    openMenu && <Dropdown userEmail={userEmail.split('@')[0]} logout={logout}/>
                 }
             </div>
                   
