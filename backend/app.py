@@ -237,7 +237,7 @@ def handel_remove():
 @app.route('/feedback',methods=['POST'])
 def send_email():
     SENDER_EMAIL = "saveatron@gmail.com" 
-    SENDER_PASSWORD = "nwib iqoc yleo ihet"  
+    SENDER_PASSWORD = "lkzm iztk fksd ythv"  
     SMTP_SERVER = "smtp.gmail.com"  
     SMTP_PORT = 587  
    
@@ -258,7 +258,7 @@ def send_email():
         <p><strong>Email:</strong> {email}</p>
         <p><strong>Subject:</strong> {subject}</p>
         <p><strong>Message:</strong><br>{message}</p>
-        <p>If you didn't request this, please ignore this email.</p>
+        
     </body>
     </html>
     """
@@ -269,7 +269,7 @@ def send_email():
     msg['To'] = "saveatron@gmail.com"  # Sending email to save-a-tron
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'html'))
-
+    print(email,subject,message)
     try:
         # Connect to the Gmail SMTP server and send the email
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:

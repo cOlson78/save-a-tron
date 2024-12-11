@@ -61,9 +61,7 @@ const Wishlist = () => {
     fetchWishlist();
   }, [userEmail]);
 
-  if (loading) {
-    return <p>Loading your wishlist...</p>;
-  }
+
 
   if (error) {
     return <p>{error}</p>;

@@ -173,7 +173,7 @@ def password_reset(connection,email,unhashed_password):
 def smtp_send(email):
 
     sender_email = "saveatron@gmail.com" 
-    sender_password = "nwib iqoc yleo ihet"  
+    sender_password = "lkzm iztk fksd ythv"  
     smtp_server = "smtp.gmail.com"  
     smtp_port = 587  
     
