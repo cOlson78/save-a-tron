@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "mui": "^0.0.1",
     "react-sticky": "^6.0.3",
     "react-sticky-box": "^2.0.5"
   }
