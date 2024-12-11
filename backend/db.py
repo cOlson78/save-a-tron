@@ -268,3 +268,8 @@ def fetch_keywords(connection, term):
         return []
     finally:
         cursor.close()
+
+def brand_search(connection, item):
+
+
+    return result
