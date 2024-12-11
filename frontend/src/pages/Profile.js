@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useUser } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import noImage from '../assets/noImage.jpg';
+import avatar from '../assets/avatar.jpg';
+import axios from "axios";
 import "../styles/Profile.css";
 
 const Profile = () => {
     const [editMode, setEditMode] = useState(false);
-    const [userName, setUserName] = useState("Your Current Username"); // Replace with actual user data
-    const { userEmail, logout } = useUser();
+    const { userEmail, logout, login } = useUser();
+    const [userName, setUserName] = useState(userEmail); // Initially setting to email as username
+    const navigate = useNavigate();
 
     const handleEditClick = () => {
         setEditMode(!editMode);
@@ -16,32 +19,65 @@ const Profile = () => {
     const handleUserNameChange = (e) => {
         setUserName(e.target.value);
     };
+    const handleLogout = () => {
+        logout();         // Perform the logout action (e.g., clearing cookies, localStorage, etc.)
+        navigate("/login"); // Navigate to the login page
+      };
+
+    // Function to handle username change on the backend
+    const handleSaveClick = async () => {
+        try {
+            // Make a PUT or PATCH request to the backend API to update the username
+            const response = await axios.put("http://localhost:3000/profile", {
+                email: userEmail,
+                newUsername: userName,
+            });
+
+            if (response.status === 200) {
+                // Assuming the server returns the updated username
+                login(userName)
+                console.log("Username updated successfully.");
+                setEditMode(false); // Switch off edit mode after successful update
+            }
+        } catch (error) {
+            console.error("Error updating username:", error);
+            alert("An error occurred while updating your username. Please try again.");
+        }
+    };
 
     return (
         <div className="profileDiv">
-            <img className="profileImage" src={noImage} alt="Avatar" />
+            <img className="profileImage" src={avatar} alt="Avatar" />
             <div className="profileInfo">
-                <p className="user">
-                    Username
-                </p>
+                <p className="user">Username</p>
                 <p className="username">
                     {editMode ? (
-                        <input className="username" type="text" value={userName} onChange={handleUserNameChange} />
+                        <input
+                            className="username"
+                            type="text"
+                            value={userName}
+                            onChange={handleUserNameChange}
+                        />
                     ) : (
                         <span>{userName}</span>
                     )}
                 </p>
                 <p className="wishlist">
-                    <Link to="/wishlist" >Wishlist</Link>
+                    <Link to="/wishlist">Wishlist</Link>
                 </p>
                 <p className="edit">
-                    <span onClick={handleEditClick}>{editMode ? "Save" : "Edit"}</span>
+                    <span onClick={editMode ? handleSaveClick : handleEditClick}>
+                        {editMode ? "Save" : "Edit"}
+                    </span>
                 </p>
                 
-                {/* This logout button bellow should redirect to the home page */}
-                <p className="logoutButton">
-                    <button onClick={logout} className='log-out-button'>Logout</button>
-                </p>
+                
+                 <p className="logoutButton">
+                    <button onClick={handleLogout}className="log-out-button">
+                        Logout
+                        
+                    </button> 
+                </p> 
             </div>
         </div>
     );

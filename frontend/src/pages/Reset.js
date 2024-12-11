@@ -23,9 +23,9 @@ const Reset = () => {
         setToken(resetToken);
 
         if (resetToken) {
-            // Temporarily set token as "123" for testing
-            if (resetToken === '123') {
-                setTokenValid(true); // Token is valid (hardcoded "123")
+           
+            if (resetToken === 'key') {
+                setTokenValid(true);
             } else {
                 setErrorMessage('Invalid or expired token.');
             }

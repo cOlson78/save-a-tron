@@ -12,7 +12,9 @@ const CheaperOption = () => {
     const [product, setProduct] = useState("");
 
     //workaround to mimick the effect of a sticky element as the built in sticky element was not working
+    
     window.addEventListener('scroll', () => {
+      
       const fixedElement = document.querySelector('.currentItemSection');
       const fixedOffset = fixedElement.offsetTop;
     
@@ -158,7 +160,9 @@ const CheaperOption = () => {
             </div>
         </div>
       </div>
+      
     );
+    
 };
 
 export default CheaperOption

@@ -41,7 +41,7 @@ const Navbar = () => {
                   {/* If logged in, display current user */}
                 {userEmail ? (
                     <div className='user-logout'>
-                        <Link to="/profile" className='current-user'>User: {userEmail}</Link>
+                        <Link to="/profile" className='current-user'>User: {userEmail.split('@')[0]}</Link>
                     </div>
                     
                 ) : (
