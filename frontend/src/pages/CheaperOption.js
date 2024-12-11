@@ -13,19 +13,26 @@ const CheaperOption = () => {
 
     //workaround to mimick the effect of a sticky element as the built in sticky element was not working
     
-    window.addEventListener('scroll', () => {
-      
-      const fixedElement = document.querySelector('.currentItemSection');
-      const fixedOffset = fixedElement.offsetTop;
+    useEffect(() => {
+      const handleScroll = () => {
+        const fixedElement = document.querySelector('.currentItemSection');
+          const fixedOffset = fixedElement.offsetTop;
+        
+          if (window.scrollY > fixedOffset) {
+            fixedElement.style.position = 'fixed';
+            fixedElement.style.top = '0';
+          } else {
+            fixedElement.style.position = 'absolute';
+            fixedElement.style.top = 'auto';
+          }
+      };
     
-      if (window.scrollY > fixedOffset) {
-        fixedElement.style.position = 'fixed';
-        fixedElement.style.top = '0';
-      } else {
-        fixedElement.style.position = 'absolute';
-        fixedElement.style.top = 'auto';
-      }
-    });
+      window.addEventListener('scroll', handleScroll);
+    
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
 
     // This useEffect is used for preselecting a product from the homepage and loading the products in
     useEffect(() => {
