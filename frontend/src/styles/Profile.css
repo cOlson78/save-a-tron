@@ -18,12 +18,21 @@ input {
     border: solid black 1px;
 }
 
+.profileInfo p {
+    display: flex;
+}
+  
+.username span,
+.username input {  
+    width: 400px;
+    flex-basis: 400px;
+}
+
 .profileInfo p span,
 .profileInfo p input {
-    position: relative;
     border: 1px solid black;
     background-color: white;
-    padding: 2px; 
+    padding: 2px;
 }
 
 .user {
@@ -47,18 +56,70 @@ input {
 
 .wishlist {
     position: absolute;
-    top: 130;
+    top: 170px;
     left: 250px;
 }
 
 .edit {
     position: absolute;
     bottom: 100px;
-    left: 150px;
+    left: 250px;
 }
 
 .logoutButton {
     position: absolute;
     bottom: 100px;
     left: 300px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .profileDiv {
+        width: 500px;
+    }
+
+    .username span,
+    .username input {
+        width: 200px;
+        flex-basis: 200px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .username span,
+    .username input {  
+        width: 250px;
+        flex-basis: 250px;
+    }
+
+    .profileDiv {
+        width: 300px;
+    }
+
+    .profileImage {
+        margin-left: 75px;
+    }
+
+    .user {
+        top: 250px;
+        left: 113.095px;
+    }
+
+    .username {
+        top: 280px;
+        left: 25px;
+    }
+
+    .wishlist {
+        top: 350px;
+        left: 122.445px;
+    }
+
+    .edit {
+        left: 50px;
+    }
+
+    .logoutButton {
+        left: 200px;
+    }
 }
