@@ -10,6 +10,7 @@ const Create = () => {
     const [password, setPassword] = useState('');
     const [retypePassword, setRetypePassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate(); // to redirect after creation
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,7 +28,8 @@ const Create = () => {
 
             if (response.status === 201) {
                 alert("Account created successfully!");
-                // redirect todo
+                
+                navigate('/login');
             }
         } catch (error) {
             if (error.response) {
@@ -57,7 +59,7 @@ const Create = () => {
                 <input 
                     type="password" 
                     className='createPassword' 
-                    placeholder="Password (8+ characters)" 
+                    placeholder="Password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required

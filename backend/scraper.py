@@ -3,12 +3,20 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-from db import connect_to_db, insert_product, save_price_to_csv
+from db import connect_to_db, insert_product, cache_search, cache_query
 import time
 import csv
 from datetime import datetime
 
-def scraper(query, dept):
+def scraper(query,dept):
+
+    connection = connect_to_db()
+    if (cache_query(connection, query)):
+        result = cache_search(connection, query)
+    
+        return result
+
+
     url = "https://www.amazon.com/s?k=" + query + "&i=" + dept
 
     # Set up Chrome options to include headers
@@ -108,6 +116,7 @@ def scraper(query, dept):
     connection.close() 
 
     driver.quit()
+  
     return result
 
 def save_price_to_csv(date, url, price):

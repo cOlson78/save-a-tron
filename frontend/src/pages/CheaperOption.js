@@ -11,6 +11,29 @@ const CheaperOption = () => {
     const [loading, setLoading] = useState(false); // State for loading screen
     const [product, setProduct] = useState("");
 
+    //workaround to mimick the effect of a sticky element as the built in sticky element was not working
+    
+    useEffect(() => {
+      const handleScroll = () => {
+        const fixedElement = document.querySelector('.currentItemSection');
+          const fixedOffset = fixedElement.offsetTop;
+        
+          if (window.scrollY > fixedOffset) {
+            fixedElement.style.position = 'fixed';
+            fixedElement.style.top = '0';
+          } else {
+            fixedElement.style.position = 'absolute';
+            fixedElement.style.top = 'auto';
+          }
+      };
+    
+      window.addEventListener('scroll', handleScroll);
+    
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
     // This useEffect is used for preselecting a product from the homepage and loading the products in
     useEffect(() => {
         // Check if a pre-selected value was passed via Link state
@@ -22,7 +45,7 @@ const CheaperOption = () => {
         const productTitle = location.state.product.title;
 
         //Set the price
-        const numericPrice = parseFloat(location.state.product.price.replace('$', ''));
+        const numericPrice = parseFloat(location.state.product.price.replace('$', '').split(",").join(""));
         console.log(numericPrice);
         
         //Load the items in
@@ -35,7 +58,7 @@ const CheaperOption = () => {
       setLoading(true); // Start loading screen
 
       try {
-          const response = await axios.get(`/search?query=${productTitle}&dept=""`);
+          const response = await axios.get(`/search_bestbuy?query=${productTitle}&dept=""`);
           console.log('Search results:', response.data); // Log the search results
 
           // Filter out products with null values for img, price, and title 
@@ -48,11 +71,13 @@ const CheaperOption = () => {
           const cheaperFilteredResults = filteredResults.filter((product) => {
             //Initalize variables
             let curProductPriceString;
+            let curProductPriceCommas;
             let curProductPrice;
 
             //Get product price
             curProductPriceString = product.price;
-            curProductPrice = parseFloat(curProductPriceString.substring(1));
+            curProductPriceCommas = curProductPriceString.substring(1);
+            curProductPrice = parseFloat(curProductPriceCommas.split(",").join(""));
             console.log(curProductPrice);
 
             //Return true if the price is less or if it is equal to 1 (this means that the price is above 1000 dollars)
@@ -62,7 +87,7 @@ const CheaperOption = () => {
 
           //Fixes product cards with invalid images, making it the placeholder image
           const resultsWithFixedImages = cheaperFilteredResults.map(product => {
-            if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg')){
+            if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg') && !product.img.endsWith('webp')){
                 return {
                     ...product,
                     img: noImage // Change to the noImage image
@@ -92,7 +117,7 @@ const CheaperOption = () => {
           </div>
         )}
         <div className="container">
-          <div className="currentItemSection">
+          <div className="currentItemSection" >
             <h1>Current Item</h1>
             <div className="product-card-wishlist">
               <img className="product-image-wishlist" src={product.img} alt={product.name} /> {/* Product image */}
@@ -142,7 +167,9 @@ const CheaperOption = () => {
             </div>
         </div>
       </div>
+      
     );
+    
 };
 
 export default CheaperOption

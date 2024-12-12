@@ -1,5 +1,6 @@
 import mysql.connector
 import smtplib
+import random
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from mysql.connector import Error
@@ -114,7 +115,7 @@ def add_wishlist(connection, item_user_data):
 
         user_id = user_id_result[0]  
 
-        
+       
         cursor.execute(sql_item, (product_url,))
         item_id_result = cursor.fetchone() 
         
@@ -122,6 +123,7 @@ def add_wishlist(connection, item_user_data):
             raise ValueError("Item not found with the provided URL.")
 
         item_id = item_id_result[0]  
+        
         cursor.execute(sql_insert, (user_id, item_id))
 
        
@@ -172,16 +174,14 @@ def password_reset(connection,email,unhashed_password):
 def smtp_send(email):
 
     sender_email = "saveatron@gmail.com" 
-    sender_password = "nwib iqoc yleo ihet"  
+    sender_password = "lkzm iztk fksd ythv"  
     smtp_server = "smtp.gmail.com"  
     smtp_port = 587  
     
 
     recipient_email = email
-
- 
     subject = "Password Reset Request"
-    reset_link = f"http://localhost:3000/reset?token=123&email={recipient_email}"  
+    reset_link = f"http://localhost:3000/reset?token=key&email={recipient_email}"  
 
     body = f"""
     <html>
@@ -216,17 +216,24 @@ def smtp_send(email):
     
 
 def cache_search(connection, key_word):
-
     cursor = connection.cursor()
    
-    sql = """SELECT * FROM items WHERE title LIKE %s;"""
+    sql = """SELECT * FROM items WHERE title LIKE %s LIMIT 50;"""
   
     cursor.execute(sql, ('%' + key_word + '%',)) 
     
     rows = cursor.fetchall()
 
     results = []
+    brands = set()  # Using a set to avoid duplicates
+    
     for row in rows:
+        # Extract brand from the title (assuming it's the first word)
+        brand = row[2].split()[0]  # Assuming title is at index 2
+        
+        # Add brand to the set of brands
+        brands.add(brand)
+        
         result_item = {
             "img": row[1],   
             "title": row[2],  
@@ -238,6 +245,9 @@ def cache_search(connection, key_word):
 
     cursor.close()
 
+    # Now format the output in the requested way: append the brands list as a separate entry
+    results.append(list(brands))  # Append the list of brands
+    
     return results
 
 def cache_query(connection, query):
@@ -249,8 +259,7 @@ def cache_query(connection, query):
 
     
     results = cursor.fetchall()
-    print(results)
-    print(len(results))
+    
     return len(results) > 0
 
 def fetch_keywords(connection, term):
@@ -268,3 +277,83 @@ def fetch_keywords(connection, term):
         return []
     finally:
         cursor.close()
+
+def brand_search(connection, item):
+    cursor = connection.cursor()
+    try:
+        # Using SUBSTRING_INDEX to get the first word from the title
+        sql = """SELECT SUBSTRING_INDEX(title, ' ', 1) FROM items """
+        cursor.execute(sql, (item,))  # Using parameterized query to prevent SQL injection
+        result = cursor.fetchall()  # Fetch all rows that match the query
+    except Exception as e:
+        print(f"Error: {e}")
+        result = None
+    finally:
+        cursor.close()  # Always close the cursor
+    return result
+
+def remove_wishlist(connection, item_user_data):
+    
+    cursor = connection.cursor()
+    
+    user_email = item_user_data['userEmail']
+    product_url = item_user_data['productUrl']
+
+    # SQL queries to get the user_id and item_id based on email and URL
+    sql_user = """SELECT user_id FROM users WHERE email = %s;"""
+    sql_item = """SELECT item_id FROM items WHERE url = %s;"""
+
+    # SQL query to remove the item from the wishlist
+    sql_delete = """DELETE FROM wishlist WHERE user_id = %s AND item_id = %s;"""
+
+    try:
+        # Get user_id using user_email
+        cursor.execute(sql_user, (user_email,))
+        user_id_result = cursor.fetchone()  
+
+        if user_id_result is None:
+            raise ValueError("User not found with the provided email.")
+
+        user_id = user_id_result[0]  # Extract user_id from the result
+
+        # Get item_id using product_url
+        cursor.execute(sql_item, (product_url,))
+        item_id_result = cursor.fetchone() 
+
+        if item_id_result is None:
+            raise ValueError("Item not found with the provided URL.")
+
+        item_id = item_id_result[0]  # Extract item_id from the result
+
+        # Remove the item from the wishlist
+        cursor.execute(sql_delete, (user_id, item_id))
+
+        # Commit the transaction to save changes
+        connection.commit()
+
+    except mysql.connector.Error as err:
+        connection.rollback()  # Rollback in case of an error
+        print(f"Error: {err}")
+
+    except ValueError as ve:
+        print(f"ValueError: {ve}")
+
+    finally:
+        cursor.close()  # Always close the cursor to free resources
+
+def change_username(connection,user_email, new_username):
+
+       # Create a cursor object
+    cursor = connection.cursor()
+
+    # SQL query with placeholders for user_email and new_username
+    sql = """UPDATE users SET email = %s WHERE email = %s;"""
+    
+    # Execute the query with the new username and user email as parameters
+    cursor.execute(sql, (new_username, user_email))
+
+    # Commit the transaction to apply changes
+    connection.commit()
+
+    # Close the cursor
+    cursor.close()

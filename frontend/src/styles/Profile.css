@@ -1,0 +1,125 @@
+.profileDiv {
+    position: relative;
+    margin: auto;
+    height: 100vh;
+    width: 800px;
+    background-color: #ecf0f1;
+}
+
+.profileImage{
+    width: 150px;
+    border-radius: 50%;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+input {
+    width: 400px;
+    border: solid black 1px;
+}
+
+.profileInfo p {
+    display: flex;
+}
+  
+.username span,
+.username input {  
+    width: 400px;
+    flex-basis: 400px;
+}
+
+.profileInfo p span,
+.profileInfo p input {
+    border: 1px solid black;
+    background-color: white;
+    padding: 2px;
+}
+
+.user {
+    position: absolute;
+    top: 100px;
+    left: 250px;
+}
+
+.username {
+    position: absolute;
+    top: 125px;
+    left: 250px;
+}
+
+.username input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: solid black 1px;
+}
+
+.wishlist {
+    position: absolute;
+    top: 170px;
+    left: 250px;
+}
+
+.edit {
+    position: absolute;
+    bottom: 100px;
+    left: 250px;
+}
+
+.logoutButton {
+    position: absolute;
+    bottom: 100px;
+    left: 300px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .profileDiv {
+        width: 500px;
+    }
+
+    .username span,
+    .username input {
+        width: 200px;
+        flex-basis: 200px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .username span,
+    .username input {  
+        width: 250px;
+        flex-basis: 250px;
+    }
+
+    .profileDiv {
+        width: 300px;
+    }
+
+    .profileImage {
+        margin-left: 75px;
+    }
+
+    .user {
+        top: 250px;
+        left: 113.095px;
+    }
+
+    .username {
+        top: 280px;
+        left: 25px;
+    }
+
+    .wishlist {
+        top: 350px;
+        left: 122.445px;
+    }
+
+    .edit {
+        left: 50px;
+    }
+
+    .logoutButton {
+        left: 200px;
+    }
+}

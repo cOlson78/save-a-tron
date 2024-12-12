@@ -1,9 +1,11 @@
 .microphone_img{
-    background-color:transparent
+    background-color:transparent;
+    /* margin-right: 20px; */
 }
 
 .microphone_img_use{
     background-color: blue;
+    /* margin-right: 20px; */
 }
 
 .transcribe_btn{

@@ -5,9 +5,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from db import connect_to_db, insert_product, cache_search,cache_query
 import re
 
-def scraper(query, dept):
+def scraper_bestbuy(query, dept):
+
+    connection = connect_to_db()
+    if (cache_query(connection, query)):
+        result = cache_search(connection, query)
+    
+        return result
+
+
     url = f"https://www.bestbuy.com/site/searchpage.jsp?st={query}&id=pcat17071"
 
     # Set up Chrome options with headless mode
@@ -58,7 +67,7 @@ def scraper(query, dept):
                 
                 # Get URL from nested <a> tag within <h4>
                 product_url_tag = title_tag.find_element(By.TAG_NAME, 'a')
-                product_url = "https://www.bestbuy.com" + product_url_tag.get_attribute('href')
+                product_url = product_url_tag.get_attribute('href')
             except:
                 pass
 
@@ -82,6 +91,7 @@ def scraper(query, dept):
                     "price": price if price else None,
                     "url": product_url
                 }
+                
                 result.append(d)
 
         # Optional: Extract brands (if relevant)
@@ -99,5 +109,8 @@ def scraper(query, dept):
         pass
     finally:
         driver.quit()
-    
+
+    connection.close()  # Close the database connection
+
+    print(result)
     return result
