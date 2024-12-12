@@ -13,19 +13,26 @@ const CheaperOption = () => {
 
     //workaround to mimick the effect of a sticky element as the built in sticky element was not working
     
-    window.addEventListener('scroll', () => {
-      
-      const fixedElement = document.querySelector('.currentItemSection');
-      const fixedOffset = fixedElement.offsetTop;
+    useEffect(() => {
+      const handleScroll = () => {
+        const fixedElement = document.querySelector('.currentItemSection');
+          const fixedOffset = fixedElement.offsetTop;
+        
+          if (window.scrollY > fixedOffset) {
+            fixedElement.style.position = 'fixed';
+            fixedElement.style.top = '0';
+          } else {
+            fixedElement.style.position = 'absolute';
+            fixedElement.style.top = 'auto';
+          }
+      };
     
-      if (window.scrollY > fixedOffset) {
-        fixedElement.style.position = 'fixed';
-        fixedElement.style.top = '0';
-      } else {
-        fixedElement.style.position = 'absolute';
-        fixedElement.style.top = 'auto';
-      }
-    });
+      window.addEventListener('scroll', handleScroll);
+    
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
 
     // This useEffect is used for preselecting a product from the homepage and loading the products in
     useEffect(() => {
@@ -51,7 +58,7 @@ const CheaperOption = () => {
       setLoading(true); // Start loading screen
 
       try {
-          const response = await axios.get(`/search?query=${productTitle}&dept=""`);
+          const response = await axios.get(`/search_bestbuy?query=${productTitle}&dept=""`);
           console.log('Search results:', response.data); // Log the search results
 
           // Filter out products with null values for img, price, and title 
@@ -80,7 +87,7 @@ const CheaperOption = () => {
 
           //Fixes product cards with invalid images, making it the placeholder image
           const resultsWithFixedImages = cheaperFilteredResults.map(product => {
-            if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg')){
+            if(!product.img.endsWith('.png') && !product.img.endsWith('.jpg') && !product.img.endsWith('.jpeg') && !product.img.endsWith('webp')){
                 return {
                     ...product,
                     img: noImage // Change to the noImage image

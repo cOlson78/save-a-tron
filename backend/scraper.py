@@ -3,8 +3,10 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-from db import connect_to_db, insert_product, cache_search,cache_query
+from db import connect_to_db, insert_product, cache_search, cache_query
 import time
+import csv
+from datetime import datetime
 
 def scraper(query,dept):
 
@@ -21,9 +23,9 @@ def scraper(query,dept):
     chrome_options = Options()
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")  #disable Selenium detection
-    chrome_options.add_argument("--headless")  #run in headless mode
-    
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")  # disable Selenium detection
+    chrome_options.add_argument("--headless")  # run in headless mode
+
     # Add user-agent to mimic a regular browser
     chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
@@ -95,8 +97,13 @@ def scraper(query,dept):
             }
             connection = connect_to_db()
             insert_product(connection, d)
+            
+            # Save price to CSV for price tracking
+            if price and product_url:
+                save_price_to_csv(datetime.now(), product_url, price)
+            
             result.append(d)
-   
+    
     # Extract brand names
     brands_section = soup.find('div', {'id': 'brandsRefinements'})
     brands = []
@@ -108,12 +115,11 @@ def scraper(query,dept):
     
     connection.close() 
 
-
-    
-
-
-    connection.close()  # Close the database connection
-
     driver.quit()
-    print(result)
+  
     return result
+
+def save_price_to_csv(date, url, price):
+    with open('prices.csv', mode='a') as file:
+        writer = csv.writer(file)
+        writer.writerow([date, url, price])

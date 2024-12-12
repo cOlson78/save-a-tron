@@ -115,7 +115,7 @@ def add_wishlist(connection, item_user_data):
 
         user_id = user_id_result[0]  
 
-        
+       
         cursor.execute(sql_item, (product_url,))
         item_id_result = cursor.fetchone() 
         
@@ -123,6 +123,7 @@ def add_wishlist(connection, item_user_data):
             raise ValueError("Item not found with the provided URL.")
 
         item_id = item_id_result[0]  
+        
         cursor.execute(sql_insert, (user_id, item_id))
 
        
@@ -173,7 +174,7 @@ def password_reset(connection,email,unhashed_password):
 def smtp_send(email):
 
     sender_email = "saveatron@gmail.com" 
-    sender_password = "nwib iqoc yleo ihet"  
+    sender_password = "lkzm iztk fksd ythv"  
     smtp_server = "smtp.gmail.com"  
     smtp_port = 587  
     
@@ -217,7 +218,7 @@ def smtp_send(email):
 def cache_search(connection, key_word):
     cursor = connection.cursor()
    
-    sql = """SELECT * FROM items WHERE title LIKE %s;"""
+    sql = """SELECT * FROM items WHERE title LIKE %s LIMIT 50;"""
   
     cursor.execute(sql, ('%' + key_word + '%',)) 
     
