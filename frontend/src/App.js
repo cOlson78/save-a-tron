@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
@@ -34,11 +34,19 @@ function App() {
                             <Route path="/profile" element={<Profile />} />
                         </Routes>
                     </div>
-                    <Footer />
+                    <ConditionalFooter />
                 </div>
             </Router>
         </UserProvider>
     );
+}
+
+// Component to conditionally render the footer
+function ConditionalFooter() {
+    const location = useLocation();
+    const pathsToHideFooter = ["/cheaper-option"];
+
+    return !pathsToHideFooter.includes(location.pathname) ? <Footer /> : null;
 }
 
 export default App;
