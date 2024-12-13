@@ -10,13 +10,10 @@ import re
 
 def scraper_bestbuy(query, dept):
 
+    #establish connection
     connection = connect_to_db()
-    if (cache_query(connection, query)):
-        result = cache_search(connection, query)
-    
-        return result
 
-
+    #connect to best buy url
     url = f"https://www.bestbuy.com/site/searchpage.jsp?st={query}&id=pcat17071"
 
     # Set up Chrome options with headless mode

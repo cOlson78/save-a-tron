@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-#from whisperAI import transcribe_audio
+from whisperAI import transcribe_audio
 from scraper import scraper
 from best_buy import scraper_bestbuy
 from db import connect_to_db,create_user,login,add_wishlist,smtp_send, password_reset, fetch_keywords,remove_wishlist,change_username

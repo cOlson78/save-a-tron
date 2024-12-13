@@ -12,7 +12,6 @@ const CheaperOption = () => {
     const [product, setProduct] = useState("");
 
     //workaround to mimick the effect of a sticky element as the built in sticky element was not working
-    
     useEffect(() => {
       const handleScroll = () => {
         const fixedElement = document.querySelector('.currentItemSection');
@@ -127,14 +126,6 @@ const CheaperOption = () => {
                   <h2 className="product-name-wishlist">{product.title}</h2> 
                   <h2 className="product-price-wishlist">{product.price}</h2> 
                 </div>
-                <a
-                  href={product.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="product-link" 
-                >
-                  Visit Store
-                </a>
               </div>
             
             </div>
