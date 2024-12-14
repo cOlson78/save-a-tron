@@ -174,7 +174,10 @@ def password_reset(connection,email,unhashed_password):
 def smtp_send(email):
 
     sender_email = "saveatron@gmail.com" 
-    sender_password = "lkzm iztk fksd ythv"  
+    
+    #Due to security concerns, this password has been changed when the rep went public.
+    sender_password = "none"  
+    
     smtp_server = "smtp.gmail.com"  
     smtp_port = 587  
     
